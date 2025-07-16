@@ -7,9 +7,10 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 export default defineConfig([
   globalIgnores(['dist']),
   {
-    files: ['**/*.{js,jsx}'],
+    files: ['**/*.{ts,tsx}'],
     extends: [
-      js.configs.recommended,
+      tseslint.configs.recommendedTypeChecked,
+      tseslint.configs.stylisticTypeChecked,
       reactHooks.configs['recommended-latest'],
       reactRefresh.configs.vite,
     ],
@@ -20,6 +21,8 @@ export default defineConfig([
         ecmaVersion: 'latest',
         ecmaFeatures: { jsx: true },
         sourceType: 'module',
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
       },
     },
     rules: {

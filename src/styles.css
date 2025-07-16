@@ -91,17 +91,22 @@ body {
   color: red;
 }
 
-.board-row:after {
-  clear: both;
-  content: '';
-  display: table;
+.board {
+  background: #ffffff;
 }
+
 
 .board-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   max-width: 100px;
   margin: 0 auto;
+}
+
+.board-row:after {
+  clear: both;
+  content: '';
+  display: table;
 }
 
 .status {

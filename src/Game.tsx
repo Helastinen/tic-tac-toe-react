@@ -1,30 +1,35 @@
+import React from "react";
 import { useState } from "react";
-import Grid from "./Grid";
+
+import GridBoard from "./GridBoard";
 import MoveHistory from "./MoveHistory";
-import Status from "./status";
+import Status from "./Status";
+
+import { Grid, History, PlayerMark, WinningLines, WinningResult } from "./types";
+import togglePlayer from "./utils";
 
 const Game = () => {
-  const [winningResult, setWinningResult] = useState(null);
-  const [nextIsX, setNextIsX] = useState(true);
-  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [history, setHistory] = useState<History>([Array(9).fill(null)]);
+  const [nextPlayer, setNextPlayer] = useState<PlayerMark>(PlayerMark.O);
+  const [winningResult, setWinningResult] = useState<WinningResult>(null);
 
-  const currentGrid = history[history.length - 1];
-  const winningValue = winningResult?.value ?? null;
-  const winningLine = winningResult?.winningLine ?? null;
+  const currentGrid: Grid = history[history.length - 1];
+  const winningValue = winningResult?.Cell;
+  const winningLine = winningResult?.winningLine;
 
+  console.log("----------");
   console.log("history: ", history);
   console.log("currentGrid : ", currentGrid);
-  console.log("----------");
 
-  const handlePlay = (nextGrid, nextIsX) => {
+  const handlePlay = (nextGrid: Grid, nextPlayer: PlayerMark) => {
+    setNextPlayer(togglePlayer(nextPlayer));
     setWinningResult(calculateWinningResult(nextGrid));
-    setNextIsX(!nextIsX);
     setHistory([...history, nextGrid]);
   };
 
   const handleReset = () => {
     setWinningResult(null);
-    setNextIsX(true);
+    setNextPlayer(PlayerMark.O);
     setHistory([Array(9).fill(null)]);
   };
 
@@ -35,13 +40,14 @@ const Game = () => {
       <div className="game-board">
         <Status 
           winningValue={winningValue}
-          nextIsX={nextIsX}
+          nextPlayer={nextPlayer}
           grid={currentGrid}
           onReset={handleReset}
         />
-        <Grid 
+        <GridBoard
+          mode = "interactive"
           winningLine={winningLine}
-          nextIsX={nextIsX}
+          nextPlayer={nextPlayer}
           grid={currentGrid}
           onPlay={handlePlay}
         />
@@ -53,9 +59,9 @@ const Game = () => {
   )
 };
 
-const calculateWinningResult = (grid) => {
+const calculateWinningResult = (grid: Grid) => {
   console.log(`calculateWinningResult () -> param grid: ${grid}`);
-  const winningLines = [
+  const winningLines: WinningLines = [
     [0, 1, 2],
     [0, 3, 6],
     [0, 4, 8],
@@ -70,8 +76,8 @@ const calculateWinningResult = (grid) => {
     const [a, b, c] = winningLines[i];
     
     if (grid[a] && grid[a] === grid[b] && grid[a] === grid[c]) {
-      const winningResult = {
-        value: grid[a], 
+      const winningResult: WinningResult = {
+        Cell: grid[a], 
         winningLine: winningLines[i]
       }
       console.log("calculateWinningResult() -> winningResult: ", winningResult)

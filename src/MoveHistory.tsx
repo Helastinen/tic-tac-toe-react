@@ -1,14 +1,16 @@
-import Grid from "./Grid";
+import React from "react";
+import GridBoard from "./GridBoard";
+import { History } from "./types";
 
-const MoveHistory = ({ history }) => {
+const MoveHistory = ({ history }: {history: History}) => {
   return (
     <ul>
-      {history.map((move, i) => { 
+      {history.map((_, i) => { 
         if (i > 0 && i < history.length - 1) {
           return (
             <li key={i} className="small-grid">
               <div>Turn #{i}</div>
-              <Grid grid={history[i]} disabled />
+              <GridBoard mode="history" grid={history[i]} disabled />
             </li>
           )
         }
