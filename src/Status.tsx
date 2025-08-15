@@ -1,19 +1,36 @@
-import React from 'react';
-import { Grid, Cell, StatusProps, PlayerMark } from './types';
+import Button from '@mui/material/Button';
+
+import { GameBoard, Cell, StatusProps, PlayerMark } from './types';
 import togglePlayer from './utils';
 
 const Status = ({ winningValue, nextPlayer, grid, onReset }: StatusProps) => {
-  if (isTieGame(winningValue, grid)) {
-    return <p>Tie game. <button onClick={onReset}>Play again</button></p>
-  }
-  
-  if (winningValue) {
-      return <p>Winner is {winningValue}. <button onClick={onReset}>Play again</button></p>
-  }
+  let message = "";
 
-  return <p>Next turn is {togglePlayer(nextPlayer)}.</p>
+  const getMessage = (winningValue: Cell | undefined, grid: GameBoard) => {
+    if (isTieGame(winningValue, grid)) {
+      return <span>Tie game.</span>
+    }
+    
+    if (winningValue) {
+      return <span>Winner is <strong>{winningValue}</strong>.</span>
+    }
+
+    return <span>Next turn is <strong>{togglePlayer(nextPlayer)}</strong>.</span>
+  }
+  return (
+    <p>
+      {getMessage(winningValue, grid)}
+      <Button
+        variant="outlined"
+        onClick={onReset}
+        sx={{margin: "1rem"}}
+      >
+        New Game
+      </Button>
+    </p>
+  )
 }
 
-const isTieGame = (winningValue: Cell | undefined, grid: Grid) => !winningValue && grid.every(item => item !== null);
+const isTieGame = (winningValue: Cell | undefined, grid: GameBoard) => !winningValue && grid.every(item => item !== null);
 
 export default Status;

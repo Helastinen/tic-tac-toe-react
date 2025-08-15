@@ -8,43 +8,9 @@ body {
   padding: 0;
 }
 
-h1 {
-  margin-top: 0;
-  font-size: 22px;
-}
-
-h2 {
-  margin-top: 0;
-  font-size: 20px;
-}
-
-h3 {
-  margin-top: 0;
-  font-size: 18px;
-}
-
-h4 {
-  margin-top: 0;
-  font-size: 16px;
-}
-
-h5 {
-  margin-top: 0;
-  font-size: 14px;
-}
-
-h6 {
-  margin-top: 0;
-  font-size: 12px;
-}
-
 p {
   margin: 10px auto;
   text-align: center;
-}
-
-code {
-  font-size: 1.2em;
 }
 
 ul {
@@ -54,30 +20,24 @@ ul {
   padding-inline-start: 20px;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: sans-serif;
-  margin: 20px;
-  padding: 0;
-}
-
 .square {
-  background: #fff;
-  border: 1px solid #999;
+  background: rgb(215, 237, 247);
+  border: 2px solid #626262;
   float: left;
-  font-size: 36px;
+  font-size: 3.5rem;
   font-weight: bold;
-  line-height: 34px;
-  height: 50px;
-  margin-right: -1px;
-  margin-top: -1px;
+  line-height: 2rem;
+  width: 4rem;
+  height: 4rem;
   padding: 0;
   text-align: center;
-  width: 50px;
 }
+
+/*.square {
+  border: 1px solid #999;
+  max-width: 100px;
+  height: 7vw;
+}*/
 
 .x-square {
   color: darkblue;
@@ -89,14 +49,17 @@ body {
 
 .winning-square {
   color: red;
+  background: yellow;
 }
 
 .board {
   background: #ffffff;
+  width: 250px;
+  margin: 0 auto;
 }
 
 
-.board-row {
+/* .board-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   max-width: 100px;
@@ -107,15 +70,10 @@ body {
   clear: both;
   content: '';
   display: table;
-}
+}*/
 
 .status {
   margin-bottom: 10px;
-}
-
-.game {
-  display: flex;
-  flex-direction: row;
 }
 
 .game-info {
@@ -123,7 +81,12 @@ body {
 }
 
 .small-grid {
-  transform: scale(0.7);
-  margin: 5px;
-  font-size: 20px;
+  transform: scale(0.6);
+  margin-left: 1rem;
+  transform-origin: top left;
+  font-size: 1.5rem;
+}
+
+.move-history-title {
+  margin: 0 1rem 1rem 1rem;
 }

@@ -1,11 +1,11 @@
-import React from "react";
+import Typography from "@mui/material/Typography";
 import { useState } from "react";
 
 import GridBoard from "./GridBoard";
 import MoveHistory from "./MoveHistory";
 import Status from "./Status";
 
-import { Grid, History, PlayerMark, WinningLines, WinningResult } from "./types";
+import { GameBoard, History, PlayerMark, WinningLines, WinningResult } from "./types";
 import togglePlayer from "./utils";
 
 const Game = () => {
@@ -13,7 +13,7 @@ const Game = () => {
   const [nextPlayer, setNextPlayer] = useState<PlayerMark>(PlayerMark.O);
   const [winningResult, setWinningResult] = useState<WinningResult>(null);
 
-  const currentGrid: Grid = history[history.length - 1];
+  const currentGrid: GameBoard = history[history.length - 1];
   const winningValue = winningResult?.Cell;
   const winningLine = winningResult?.winningLine;
 
@@ -21,7 +21,7 @@ const Game = () => {
   console.log("history: ", history);
   console.log("currentGrid : ", currentGrid);
 
-  const handlePlay = (nextGrid: Grid, nextPlayer: PlayerMark) => {
+  const handlePlay = (nextGrid: GameBoard, nextPlayer: PlayerMark) => {
     setNextPlayer(togglePlayer(nextPlayer));
     setWinningResult(calculateWinningResult(nextGrid));
     setHistory([...history, nextGrid]);
@@ -36,14 +36,21 @@ const Game = () => {
   if (!currentGrid) return <div>Loading board...</div>;
 
   return (
-    <div className="game">
-      <div className="game-board">
-        <Status 
-          winningValue={winningValue}
-          nextPlayer={nextPlayer}
-          grid={currentGrid}
-          onReset={handleReset}
-        />
+    <>
+      <Typography 
+        variant="h4"
+        color="primary"
+        sx={{ textAlign:"center", margin:"1rem" }}
+      >
+        Tic-Tac-Toe
+      </Typography>
+      <Status 
+        winningValue={winningValue}
+        nextPlayer={nextPlayer}
+        grid={currentGrid}
+        onReset={handleReset}
+      />
+      <div className="board">
         <GridBoard
           mode = "interactive"
           winningLine={winningLine}
@@ -55,11 +62,12 @@ const Game = () => {
       <div className="game-info">
         <MoveHistory history={history} />
       </div>
-    </div>
+
+    </>
   )
 };
 
-const calculateWinningResult = (grid: Grid) => {
+const calculateWinningResult = (grid: GameBoard) => {
   console.log(`calculateWinningResult () -> param grid: ${grid}`);
   const winningLines: WinningLines = [
     [0, 1, 2],
