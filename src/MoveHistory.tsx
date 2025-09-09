@@ -46,7 +46,9 @@ const MoveHistory = ({ history, players } : MoveHistoryProps) => {
                   justifyContent: "flex-start",
                   }}
               >
-                <div className="move-history-title">Turn <strong>{i}</strong> ({i % 2 === 1 ? players?.player1 : players?.player2})</div>
+                <div className="move-history-title">
+                  Turn <strong>{i}</strong> ({i % 2 === 1 ? players?.player1 : players?.player2})
+                </div>
                 <div key={i} className="small-grid">
                   <GridBoard mode="history" grid={history[i]} disabled />
                 </div>

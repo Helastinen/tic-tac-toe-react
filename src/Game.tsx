@@ -66,6 +66,7 @@ const Game = () => {
         players={players}
         grid={currentGrid}
         gameStarted={gameStarted}
+        history={history}
       />
       <div className="board">
         <GridBoard

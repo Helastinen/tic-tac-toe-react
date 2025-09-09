@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import { GameBoard, Cell, StatusProps, PlayerMark } from './types';
 import togglePlayer from './utils';
 
-const Status = ({ winningValue, nextPlayer, players, grid, gameStarted }: StatusProps) => {
+const Status = ({ winningValue, nextPlayer, players, grid, gameStarted, history }: StatusProps) => {
   const getNextPlayerName = (): string | undefined => {
     return togglePlayer(nextPlayer) === PlayerMark.X ? players?.player1 : players?.player2;
   };
@@ -17,7 +17,7 @@ const Status = ({ winningValue, nextPlayer, players, grid, gameStarted }: Status
       return <span>Winner is <strong>{winningValue}</strong>.</span>
     }
 
-    return <span>You're up <strong>{getNextPlayerName()}</strong>.</span>
+    return <span>Turn <strong>{history.length}</strong>: You're up <strong>{getNextPlayerName()}</strong>.</span>
   };
 
   return (

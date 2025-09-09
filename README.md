@@ -13,5 +13,4 @@ If you are developing a production application, we recommend using TypeScript wi
 
 
 Todo:
-- show player name in <Status> and <Move history>
 - Add separate error handling per player name input field

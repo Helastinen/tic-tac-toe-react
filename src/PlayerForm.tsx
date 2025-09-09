@@ -84,7 +84,7 @@ const PlayerForm = ({onStartGame, gameStarted}: PlayerFormProps) => {
           </Grid>
         </Grid>
         <Grid
-          size={{xs: 12, md: 3}}
+          size={{xs: 12, md: 2}}
           display="flex"
           justifyContent="center"
           alignItems="center"

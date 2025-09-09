@@ -27,6 +27,7 @@ export interface StatusProps {
   players: PlayerNames;
   grid: GameBoard;
   gameStarted: boolean;
+  history: History;
 }
 
 export interface SquareProps {
