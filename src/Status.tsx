@@ -3,8 +3,10 @@ import Button from '@mui/material/Button';
 import { GameBoard, Cell, StatusProps, PlayerMark } from './types';
 import togglePlayer from './utils';
 
-const Status = ({ winningValue, nextPlayer, grid, onReset }: StatusProps) => {
-  let message = "";
+const Status = ({ winningValue, nextPlayer, players, grid, gameStarted }: StatusProps) => {
+  const getNextPlayerName = (): string | undefined => {
+    return togglePlayer(nextPlayer) === PlayerMark.X ? players?.player1 : players?.player2;
+  };
 
   const getMessage = (winningValue: Cell | undefined, grid: GameBoard) => {
     if (isTieGame(winningValue, grid)) {
@@ -15,18 +17,12 @@ const Status = ({ winningValue, nextPlayer, grid, onReset }: StatusProps) => {
       return <span>Winner is <strong>{winningValue}</strong>.</span>
     }
 
-    return <span>Next turn is <strong>{togglePlayer(nextPlayer)}</strong>.</span>
-  }
+    return <span>You're up <strong>{getNextPlayerName()}</strong>.</span>
+  };
+
   return (
     <p>
-      {getMessage(winningValue, grid)}
-      <Button
-        variant="outlined"
-        onClick={onReset}
-        sx={{margin: "1rem"}}
-      >
-        New Game
-      </Button>
+      {gameStarted && getMessage(winningValue, grid)}
     </p>
   )
 }

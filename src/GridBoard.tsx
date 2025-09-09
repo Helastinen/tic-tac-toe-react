@@ -6,7 +6,7 @@ import togglePlayer from "./utils";
 
 const GridBoard = (props: GridBoardProps) => {
   console.log("<GridBoard> gridBoard: ", props.grid);
-  const { grid } = props;
+  const { grid, disabled } = props;
 
   let nextPlayer: PlayerMark | undefined;
   let onPlay: ((nextGrid: GameBoard, nextPlayer: PlayerMark) => void) | undefined;
@@ -20,7 +20,7 @@ const GridBoard = (props: GridBoardProps) => {
 
   const handleClick = (i: number) => {
     // do nothing if square has already value or game has ended
-    if (grid[i] || winningLine || !nextPlayer) return;
+    if (disabled || grid[i] || winningLine || !nextPlayer) return;
 
     const nextGrid = [...grid];
     nextGrid[i] = togglePlayer(nextPlayer);

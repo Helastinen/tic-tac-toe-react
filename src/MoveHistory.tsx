@@ -5,7 +5,7 @@ import { MoveHistoryProps, PlayerMark } from "./types";
 import Typography from "@mui/material/Typography";
 import togglePlayer from "./utils";
 
-const MoveHistory = ({ history } : MoveHistoryProps) => {
+const MoveHistory = ({ history, players } : MoveHistoryProps) => {
   // show turns only if there have been at least two moves
   const hasHistory = history.length > 2;
 
@@ -46,7 +46,7 @@ const MoveHistory = ({ history } : MoveHistoryProps) => {
                   justifyContent: "flex-start",
                   }}
               >
-                <div className="move-history-title">Turn <strong>{i}</strong> ({i % 2 === 1 ? PlayerMark.X : PlayerMark.O})</div>
+                <div className="move-history-title">Turn <strong>{i}</strong> ({i % 2 === 1 ? players?.player1 : players?.player2})</div>
                 <div key={i} className="small-grid">
                   <GridBoard mode="history" grid={history[i]} disabled />
                 </div>

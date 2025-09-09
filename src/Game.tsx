@@ -3,23 +3,26 @@ import { useState } from "react";
 
 import GridBoard from "./GridBoard";
 import MoveHistory from "./MoveHistory";
+import PlayerForm from "./PlayerForm";
 import Status from "./Status";
 
-import { GameBoard, History, PlayerMark, WinningLines, WinningResult } from "./types";
+import { GameBoard, History, PlayerMark, PlayerNames, WinningLines, WinningResult } from "./types";
 import togglePlayer from "./utils";
+
 
 const Game = () => {
   const [history, setHistory] = useState<History>([Array(9).fill(null)]);
   const [nextPlayer, setNextPlayer] = useState<PlayerMark>(PlayerMark.O);
+  const [players, setPlayers] = useState<PlayerNames>(null);
   const [winningResult, setWinningResult] = useState<WinningResult>(null);
+  const [gameStarted, setGameStarted] = useState(false);
 
   const currentGrid: GameBoard = history[history.length - 1];
-  const winningValue = winningResult?.Cell;
+  const winningValue = winningResult?.cell;
   const winningLine = winningResult?.winningLine;
 
-  console.log("----------");
-  console.log("history: ", history);
-  console.log("currentGrid : ", currentGrid);
+  console.log("----------");;
+  console.log("<Game> players: ", players);
 
   const handlePlay = (nextGrid: GameBoard, nextPlayer: PlayerMark) => {
     setNextPlayer(togglePlayer(nextPlayer));
@@ -27,10 +30,19 @@ const Game = () => {
     setHistory([...history, nextGrid]);
   };
 
-  const handleReset = () => {
+  const handleStartGame = (playerNames: PlayerNames) => {
     setWinningResult(null);
     setNextPlayer(PlayerMark.O);
     setHistory([Array(9).fill(null)]);
+
+    if (gameStarted) {
+      // allow user to change player names
+      setPlayers(null);
+      setGameStarted(false);
+    } else {
+      setPlayers(playerNames);
+      setGameStarted(true);
+    }
   };
 
   if (!currentGrid) return <div>Loading board...</div>;
@@ -44,15 +56,21 @@ const Game = () => {
       >
         Tic-Tac-Toe
       </Typography>
+      <PlayerForm 
+        onStartGame={(playerNames) => handleStartGame(playerNames)}
+        gameStarted={gameStarted}
+      ></PlayerForm>
       <Status 
         winningValue={winningValue}
         nextPlayer={nextPlayer}
+        players={players}
         grid={currentGrid}
-        onReset={handleReset}
+        gameStarted={gameStarted}
       />
       <div className="board">
         <GridBoard
-          mode = "interactive"
+          disabled={!gameStarted}
+          mode="interactive"
           winningLine={winningLine}
           nextPlayer={nextPlayer}
           grid={currentGrid}
@@ -60,7 +78,7 @@ const Game = () => {
         />
       </div>
       <div className="game-info">
-        <MoveHistory history={history} />
+        <MoveHistory history={history} players={players}/>
       </div>
 
     </>
@@ -85,7 +103,7 @@ const calculateWinningResult = (grid: GameBoard) => {
     
     if (grid[a] && grid[a] === grid[b] && grid[a] === grid[c]) {
       const winningResult: WinningResult = {
-        Cell: grid[a], 
+        cell: grid[a], 
         winningLine: winningLines[i]
       }
       console.log("calculateWinningResult() -> winningResult: ", winningResult)
