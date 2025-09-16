@@ -9,12 +9,12 @@ const GridBoard = (props: GridBoardProps) => {
   const { grid, disabled } = props;
 
   let nextPlayer: PlayerMark | undefined;
-  let onPlay: ((nextGrid: GameBoard, nextPlayer: PlayerMark) => void) | undefined;
+  let OnPlayerMove: ((nextGrid: GameBoard, nextPlayer: PlayerMark) => void) | undefined;
   let winningLine: number[] | undefined;
 
   if (isInteractiveGridBoardProps(props)) {
     nextPlayer = props.nextPlayer;
-    onPlay = props.onPlay;
+    OnPlayerMove = props.OnPlayerMove;
     winningLine = props.winningLine;
   }
 
@@ -24,7 +24,7 @@ const GridBoard = (props: GridBoardProps) => {
 
     const nextGrid = [...grid];
     nextGrid[i] = togglePlayer(nextPlayer);
-    onPlay?.(nextGrid, nextPlayer);
+    OnPlayerMove?.(nextGrid, nextPlayer);
   }
 
   return (

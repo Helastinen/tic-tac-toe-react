@@ -6,14 +6,17 @@ import MoveHistory from "./MoveHistory";
 import PlayerForm from "./PlayerForm";
 import Status from "./Status";
 
-import { GameBoard, History, PlayerMark, PlayerNames, WinningLines, WinningResult } from "./types";
+import { GameBoard, History, PlayerMark, Players, WinningLines, WinningResult } from "./types";
 import togglePlayer from "./utils";
 
 
 const Game = () => {
   const [history, setHistory] = useState<History>([Array(9).fill(null)]);
   const [nextPlayer, setNextPlayer] = useState<PlayerMark>(PlayerMark.O);
-  const [players, setPlayers] = useState<PlayerNames>(null);
+  const [players, setPlayers] = useState<Players>({
+    player1: "Player 1 (X)",
+    player2: "Player 2 (O)",
+  });
   const [winningResult, setWinningResult] = useState<WinningResult>(null);
   const [gameStarted, setGameStarted] = useState(false);
 
@@ -24,23 +27,22 @@ const Game = () => {
   console.log("----------");;
   console.log("<Game> players: ", players);
 
-  const handlePlay = (nextGrid: GameBoard, nextPlayer: PlayerMark) => {
+  const handlePlayerMove = (nextGrid: GameBoard, nextPlayer: PlayerMark) => {
     setNextPlayer(togglePlayer(nextPlayer));
     setWinningResult(calculateWinningResult(nextGrid));
     setHistory([...history, nextGrid]);
   };
 
-  const handleStartGame = (playerNames: PlayerNames) => {
+  const handleStartGame = (players: Players) => {
     setWinningResult(null);
     setNextPlayer(PlayerMark.O);
     setHistory([Array(9).fill(null)]);
+    setPlayers(players);
 
     if (gameStarted) {
       // allow user to change player names
-      setPlayers(null);
       setGameStarted(false);
     } else {
-      setPlayers(playerNames);
       setGameStarted(true);
     }
   };
@@ -57,7 +59,9 @@ const Game = () => {
         Tic-Tac-Toe
       </Typography>
       <PlayerForm 
-        onStartGame={(playerNames) => handleStartGame(playerNames)}
+        players={players}
+        setPlayers={setPlayers}
+        onStartGame={(players) => handleStartGame(players)}
         gameStarted={gameStarted}
       ></PlayerForm>
       <Status 
@@ -75,7 +79,7 @@ const Game = () => {
           winningLine={winningLine}
           nextPlayer={nextPlayer}
           grid={currentGrid}
-          onPlay={handlePlay}
+          OnPlayerMove={handlePlayerMove}
         />
       </div>
       <div className="game-info">

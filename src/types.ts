@@ -16,7 +16,7 @@ export type WinningResult = null | {
   cell: Cell;
   winningLine: WinningLine;
 } 
-export type PlayerNames = null | {
+export type Players = null | {
   player1: string;
   player2: string;
 }
@@ -24,7 +24,7 @@ export type PlayerNames = null | {
 export interface StatusProps {
   winningValue: Cell | undefined;
   nextPlayer: PlayerMark;
-  players: PlayerNames;
+  players: Players;
   grid: GameBoard;
   gameStarted: boolean;
   history: History;
@@ -41,7 +41,7 @@ export interface InteractiveGridBoardProps {
   mode: "interactive";
   grid: GameBoard;
   nextPlayer: PlayerMark;
-  onPlay: (nextGrid: GameBoard, nextPlayer: PlayerMark) => void;
+  OnPlayerMove: (nextGrid: GameBoard, nextPlayer: PlayerMark) => void;
   winningLine?: WinningLine | undefined;
   disabled?: boolean;
 }
@@ -61,10 +61,12 @@ export function isInteractiveGridBoardProps(
 
 export interface MoveHistoryProps {
   history: History;
-  players: PlayerNames;
+  players: Players;
 };
 
 export interface PlayerFormProps {
-  onStartGame: (playerNames: PlayerNames) => void;
+  players: Players;
+  setPlayers: React.Dispatch<React.SetStateAction<Players>>;
+  onStartGame: (players: Players) => void;
   gameStarted: boolean;
 };

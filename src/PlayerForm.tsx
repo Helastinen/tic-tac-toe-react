@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid";
-import { PlayerFormProps, PlayerNames } from "./types";
+import { PlayerFormProps, Players } from "./types";
 
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField"
@@ -7,21 +7,17 @@ import Typography from "@mui/material/Typography"
 
 import { useState } from "react";
 
-const PlayerForm = ({onStartGame, gameStarted}: PlayerFormProps) => {
-  const [playerNames, setPlayerNames] = useState<PlayerNames>({
-    player1: "Player 1 (X)",
-    player2: "Player 2 (O)",
-  });
+const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted }: PlayerFormProps) => {
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState("");
 
-  console.log("<PlayerForm> playerNames: ", playerNames);
+  console.log("<PlayerForm> players: ", players);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     console.log("<PlayerForm> e: ", e);
     const {name, value} = e.target;
     validate(value);
-    setPlayerNames(prev => ({ ...prev, [name]: value }) as PlayerNames)
+    setPlayers(prev => ({ ...prev, [name]: value }) as Players)
   };
 
   const validate = (input: string) => {
@@ -92,7 +88,7 @@ const PlayerForm = ({onStartGame, gameStarted}: PlayerFormProps) => {
           <Button
             disabled={error}
             variant="outlined"
-            onClick={() => onStartGame(playerNames)}
+            onClick={() => onStartGame(players)}
             sx={{ margin: "1rem" }}
           >
             {gameStarted ? "New Game" : "Start game"}
