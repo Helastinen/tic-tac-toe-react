@@ -18,6 +18,10 @@ If you are developing a production application, we recommend using TypeScript wi
 
 History
 - add history modal, which shows:
-  -- how many games have been played
-  -- how many times player one has won
-  -- how many times player two has won
+  -- how many games have been played -> in progress
+  -- how many times player one has won -> in progress
+  -- how many times player two has won-> in progress
+  -- how many ties -> in progress
+  -- average win round
+  -- how many times won with X
+  -- how many times won with O

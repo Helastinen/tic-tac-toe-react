@@ -83,7 +83,7 @@ const Game = () => {
         />
       </div>
       <div className="game-info">
-        <MoveHistory history={history} players={players}/>
+        <MoveHistory history={history} players={players} />
       </div>
 
     </>

@@ -70,3 +70,8 @@ export interface PlayerFormProps {
   onStartGame: (players: Players) => void;
   gameStarted: boolean;
 };
+
+export interface GameStatsDialogProps {
+  open: boolean;
+  onClose: () => void;
+};

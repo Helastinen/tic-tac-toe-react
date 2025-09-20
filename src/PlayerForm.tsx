@@ -7,9 +7,12 @@ import Typography from "@mui/material/Typography"
 
 import { useState } from "react";
 
+import GameStatsDialog from "./GameStatsDialog";
+
 const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted }: PlayerFormProps) => {
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState("");
+  const [openStatsDialog, setOpenStatsDialog] = useState(false);
 
   console.log("<PlayerForm> players: ", players);
 
@@ -19,6 +22,14 @@ const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted }: PlayerFor
     validate(value);
     setPlayers(prev => ({ ...prev, [name]: value }) as Players)
   };
+
+  const handleStatsDialogOpen = () => {
+    setOpenStatsDialog(true);
+  }
+
+  const handleStatsDialogClose = () => {
+    setOpenStatsDialog(false);
+  }
 
   const validate = (input: string) => {
     const trimmedInput = input.trim();
@@ -80,19 +91,22 @@ const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted }: PlayerFor
           </Grid>
         </Grid>
         <Grid
-          size={{xs: 12, md: 2}}
+          size={{xs: 12, md: 3}}
           display="flex"
           justifyContent="center"
           alignItems="center"
         >
           <Button
             disabled={error}
-            variant="outlined"
+            variant="contained"
             onClick={() => onStartGame(players)}
             sx={{ margin: "1rem" }}
           >
             {gameStarted ? "New Game" : "Start game"}
           </Button>
+          <Button variant="outlined" onClick={handleStatsDialogOpen}>Stats</Button>
+          <GameStatsDialog open={openStatsDialog} onClose={handleStatsDialogClose}>
+          </GameStatsDialog>
         </Grid>
       </Grid>
     </>
