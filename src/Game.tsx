@@ -2,7 +2,7 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 
 import GridBoard from "./GridBoard";
-import MovemoveHistory from "./MoveHistory";
+import MoveHistory from "./MoveHistory";
 import PlayerForm from "./PlayerForm";
 import Status from "./Status";
 
@@ -97,7 +97,7 @@ const Game = () => {
         />
       </div>
       <div className="game-info">
-        <MovemoveHistory moveHistory={moveHistory} players={players} />
+        <MoveHistory moveHistory={moveHistory} players={players} />
       </div>
 
     </>
