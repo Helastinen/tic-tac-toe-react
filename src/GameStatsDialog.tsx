@@ -13,8 +13,8 @@ import GamesIcon from '@mui/icons-material/Games';
 const GameStatsDialog = ({open, onClose, gameStats }: GameStatsDialogProps) => {
   const stats = [
     { name: "Games Played", value: gameStats.gamesPlayed },
-    { name: "Player 1 wins", value: gameStats.player1Wins },
-    { name: "Player 2 wins", value: gameStats.player2Wins },
+    { name: "Player One wins", value: gameStats.playerOneWins },
+    { name: "Player Two wins", value: gameStats.playerTwoWins },
     { name: "Ties", value: gameStats.ties },
     { name: "Aborted", value: gameStats.aborted },
   ];

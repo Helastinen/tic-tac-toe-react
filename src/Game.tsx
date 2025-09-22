@@ -6,53 +6,72 @@ import MoveHistory from "./MoveHistory";
 import PlayerForm from "./PlayerForm";
 import Status from "./Status";
 
-import { GameBoard, moveHistory, PlayerMark, Players, WinningLines, WinningResult } from "./types";
-import togglePlayer from "./utils";
+import { 
+  Cell,
+  GameBoard,
+  GameStats,
+  MoveHistoryType,
+  PlayerMark,
+  Players,
+  WinningLine,
+  WinningLines,
+  WinningResult
+} from "./types";
+import { isTieGame, togglePlayer } from "./utils";
 
 const Game = () => {
-  const [moveHistory, setmoveHistory] = useState<moveHistory>([Array(9).fill(null)]);
+  const [moveHistory, setMoveHistory] = useState<MoveHistoryType>([Array(9).fill(null)]);
   const [nextPlayer, setNextPlayer] = useState<PlayerMark>(PlayerMark.O);
   const [players, setPlayers] = useState<Players>({
-    player1: "Player 1 (X)",
-    player2: "Player 2 (O)",
+    playerOne: "Player One (X)",
+    playerTwo: "Player Two (O)",
   });
 
   const [winningResult, setWinningResult] = useState<WinningResult>(null);
   const [gameStarted, setGameStarted] = useState(false);
-  const [gameStats, setGameStats] = useState({ 
+  const [gameStats, setGameStats] = useState<GameStats>({ 
     gamesPlayed: 0,
-    player1Wins: 0,
-    player2Wins: 0,
+    playerOneWins: 0,
+    playerTwoWins: 0,
     ties: 0,
     aborted: 0,
   });
 
   const currentGrid: GameBoard = moveHistory[moveHistory.length - 1];
-  const winningValue = winningResult?.cell;
-  const winningLine = winningResult?.winningLine;
+  const winningValue: Cell | undefined = winningResult?.cell;
+  const winningLine: WinningLine | undefined = winningResult?.winningLine;
 
-  console.log("----------");;
+  console.log("----------NEW RENDER--------");;
   // console.log("<Game> players: ", players);
-  console.log("<Game> moveHistory: ", moveHistory);
+  // console.log("<Game> moveHistory: ", moveHistory);
+  console.log("<Game> gameStats: ", gameStats);
 
   const handlePlayerMove = (nextGrid: GameBoard, nextPlayer: PlayerMark) => {
+    const result = calculateWinningResult(nextGrid);
+    const winValue: Cell | undefined = result?.cell;
+    const tieGame = isTieGame(winValue, nextGrid);
+
     setNextPlayer(togglePlayer(nextPlayer));
-    setWinningResult(calculateWinningResult(nextGrid));
-    setmoveHistory([...moveHistory, nextGrid]);
+    setMoveHistory([...moveHistory, nextGrid]);
+    setWinningResult(result);
+    console.log("<Game> -> handlePlayerMove(): result", result);
+    console.log("<Game> -> handlePlayerMove(): winValue", winValue);
+
+    if (result || tieGame) {
+      console.log("<Game> -> handlePlayerMove(): setGameStats triggered!");
+      setGameStats(calculateStats(gameStats, winValue, nextGrid));
+    }
   };
 
   const handleStartGame = (players: Players) => {
     setWinningResult(null);
     setNextPlayer(PlayerMark.O);
-    setmoveHistory([Array(9).fill(null)]);
+    setMoveHistory([Array(9).fill(null)]);
     setPlayers(players);
 
     if (gameStarted) {
-      if (!winningResult) {
-        // game has been aborted
-        setGameStats({ ...gameStats, aborted: gameStats.aborted + 1 })
-      }
-      
+      // game has been aborted, if user starts new game during existing game
+      setGameStats({ ...gameStats, aborted: gameStats.aborted + 1 });
       // allow user to change player names
       setGameStarted(false);
     } else {
@@ -133,8 +152,24 @@ const calculateWinningResult = (grid: GameBoard) => {
   return null;
 }
 
-const calculateStats = (winningResult: WinningResult) => {
+const calculateStats = (gameStats: GameStats, winningValue: Cell | undefined, grid: GameBoard) => {
+  const updatedStats = { ...gameStats, gamesPlayed: gameStats.gamesPlayed + 1 };
 
+  if (isTieGame(winningValue, grid)) {
+    console.log("ties updated");
+    return { ...updatedStats, ties: gameStats.ties + 1 };
+  }
+
+  if (winningValue === PlayerMark.X) {
+    console.log("winningValue X updated");
+    return { ...updatedStats, playerOneWins: gameStats.playerOneWins + 1 };
+  }
+
+  if (winningValue === PlayerMark.O) {
+    return { ...updatedStats, playerTwoWins: gameStats.playerTwoWins + 1 };
+  }
+
+  return updatedStats;
 }
 
 export default Game;

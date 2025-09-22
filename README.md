@@ -21,7 +21,10 @@ If you are developing a production application, we recommend using TypeScript wi
 
 ### moveHistory
 - add moveHistory modal, which shows:
-  -- add actual stats from state!
+  -- add actual stats from state! DONE.
   -- average win round
   -- how many times won with X
   -- how many times won with O
+
+### Gameboard
+-- make it look disabled, when disabled

@@ -2,7 +2,7 @@ import Grid from "@mui/material/Grid";
 
 import Square from "./Square";
 import { GameBoard, GridBoardProps, InteractiveGridBoardProps, isInteractiveGridBoardProps, PlayerMark } from "./types";
-import togglePlayer from "./utils";
+import { togglePlayer } from "./utils";
 
 const GridBoard = (props: GridBoardProps) => {
   // console.log("<GridBoard> gridBoard: ", props.grid);

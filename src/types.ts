@@ -8,7 +8,7 @@ export type Optional<T> = T | undefined;
 
 export type Cell = Nullable<PlayerMark>;
 export type GameBoard = Cell[];
-export type moveHistory = Cell[][];
+export type MoveHistoryType = Cell[][];
 
 export type WinningLine = number[];
 export type WinningLines = number[][];
@@ -17,15 +17,15 @@ export type WinningResult = null | {
   winningLine: WinningLine;
 } 
 export type Players = null | {
-  player1: string;
-  player2: string;
+  playerOne: string;
+  playerTwo: string;
 }
 export type GameStats = {
-    gamesPlayed: number;
-    player1Wins: number;
-    player2Wins: number;
-    ties: number;
-    aborted: number;
+  gamesPlayed: number;
+  playerOneWins: number;
+  playerTwoWins: number;
+  ties: number;
+  aborted: number;
 }
 
 export interface StatusProps {
@@ -34,7 +34,7 @@ export interface StatusProps {
   players: Players;
   grid: GameBoard;
   gameStarted: boolean;
-  moveHistory: moveHistory;
+  moveHistory: MoveHistoryType;
 }
 
 export interface SquareProps {
@@ -53,13 +53,13 @@ export interface InteractiveGridBoardProps {
   disabled?: boolean;
 }
 
-export interface moveHistoryGridBoardProps {
+export interface MoveHistoryGridBoardProps {
   mode: "moveHistory";
   grid: GameBoard;
   disabled?: true;
 }
 
-export type GridBoardProps = InteractiveGridBoardProps | moveHistoryGridBoardProps;
+export type GridBoardProps = InteractiveGridBoardProps | MoveHistoryGridBoardProps;
 
 export function isInteractiveGridBoardProps(
   props: GridBoardProps): props is InteractiveGridBoardProps {
@@ -67,7 +67,7 @@ export function isInteractiveGridBoardProps(
   }
 
 export interface MoveHistoryProps {
-  moveHistory: moveHistory;
+  moveHistory: MoveHistoryType;
   players: Players;
 };
 

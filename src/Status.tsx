@@ -1,20 +1,26 @@
 import Button from '@mui/material/Button';
 
 import { GameBoard, Cell, StatusProps, PlayerMark } from './types';
-import togglePlayer from './utils';
+import { isTieGame, togglePlayer } from './utils';
 
 const Status = ({ winningValue, nextPlayer, players, grid, gameStarted, moveHistory }: StatusProps) => {
   const getNextPlayerName = (): string | undefined => {
-    return togglePlayer(nextPlayer) === PlayerMark.X ? players?.player1 : players?.player2;
+    return togglePlayer(nextPlayer) === PlayerMark.X ? players?.playerOne : players?.playerTwo;
   };
 
+  const getWinningPlayerName = (winningValue: Cell | undefined): string | undefined => {
+    return winningValue === PlayerMark.X
+      ? players?.playerOne
+      : players?.playerTwo
+  }
+
   const getMessage = (winningValue: Cell | undefined, grid: GameBoard) => {
-    if (isTieGame(winningValue, grid)) {
+    if (isTieGame (winningValue, grid)) {
       return <span>Tie game.</span>
     }
     
     if (winningValue) {
-      return <span>Winner is <strong>{winningValue}</strong>.</span>
+      return <span>Winner is <strong>{getWinningPlayerName(winningValue)}</strong> on turn {moveHistory.length - 1}.</span>
     }
 
     return <span>Turn <strong>{moveHistory.length}</strong>: You're up <strong>{getNextPlayerName()}</strong>.</span>
@@ -26,7 +32,5 @@ const Status = ({ winningValue, nextPlayer, players, grid, gameStarted, moveHist
     </p>
   )
 }
-
-const isTieGame = (winningValue: Cell | undefined, grid: GameBoard) => !winningValue && grid.every(item => item !== null);
 
 export default Status;

@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import GridBoard from "./GridBoard";
 import { MoveHistoryProps, PlayerMark } from "./types";
 import Typography from "@mui/material/Typography";
-import togglePlayer from "./utils";
+import { togglePlayer } from "./utils";
 
 const MoveHistory = ({ moveHistory, players } : MoveHistoryProps) => {
   // show turns only if there have been at least two moves
@@ -47,7 +47,7 @@ const MoveHistory = ({ moveHistory, players } : MoveHistoryProps) => {
                   }}
               >
                 <div className="move-history-title">
-                  Turn <strong>{i}</strong> ({i % 2 === 1 ? players?.player1 : players?.player2})
+                  Turn <strong>{i}</strong> ({i % 2 === 1 ? players?.playerOne : players?.playerTwo})
                 </div>
                 <div key={i} className="small-grid">
                   <GridBoard mode="moveHistory" grid={moveHistory[i]} disabled />
