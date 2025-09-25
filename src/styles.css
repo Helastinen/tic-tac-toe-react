@@ -22,7 +22,7 @@ ul {
 
 .square {
   background: rgb(215, 237, 247);
-  border: 2px solid #626262;
+  border: 2px solid #1976d2;
   float: left;
   font-size: 3.5rem;
   font-weight: bold;
@@ -49,7 +49,7 @@ ul {
 
 .winning-square {
   color: red;
-  background: yellow;
+  background: rgb(255, 255, 255);
 }
 
 .board {
@@ -73,11 +73,11 @@ ul {
 }*/
 
 .status {
-  margin-bottom: 10px;
+  margin-bottom: 1.5rem;
 }
 
 .game-info {
-  margin-left: 50px;
+  margin-left: 3rem;
 }
 
 .small-grid {
@@ -88,5 +88,15 @@ ul {
 }
 
 .move-history-title {
-  margin: 0 1rem 1rem 1rem;
+  margin: 0 2rem 1rem 1rem;
+}
+
+.gridboard-disabled {
+  filter: grayscale(100%);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.gridboard-move-history {
+  filter: grayscale(100%);
 }

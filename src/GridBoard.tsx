@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 
 import Square from "./Square";
-import { GameBoard, GridBoardProps, InteractiveGridBoardProps, isInteractiveGridBoardProps, PlayerMark } from "./types";
+import { GameBoard, GridBoardProps, isInteractiveGridBoardProps, PlayerMark } from "./types";
 import { togglePlayer } from "./utils";
 
 const GridBoard = (props: GridBoardProps) => {
@@ -27,10 +27,27 @@ const GridBoard = (props: GridBoardProps) => {
     OnPlayerMove?.(nextGrid, nextPlayer);
   }
 
+  const getClassName = (): string => {
+    if (!isInteractiveGridBoardProps(props)) {
+      return "gridboard-move-history"
+    }
+
+    return disabled ? "gridboard-disabled" : "";
+  }
+
   return (
-    <Grid container spacing={2} sx={{ minWidth: 250, maxWidth: 300, margin: "0 auto" }}>
+    <Grid 
+      container
+      spacing={2}
+      className={getClassName()}
+      sx={{ 
+        minWidth: 250,
+        maxWidth: 300,
+        margin: "0 auto",
+      }}
+    >
       {[0, 1, 2].map((row) => (
-        <Grid size={{xs: 12}} key={row}>
+        <Grid size={{xs: 12}} key={row}> 
           <Grid container spacing={2}>
             {[0, 1, 2].map((col) => {
               const i = row * 3 + col;

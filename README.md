@@ -13,18 +13,14 @@ If you are developing a production application, we recommend using TypeScript wi
 
 
 ## Todo list
-
-- Add separate error handling per player name input field
-
 ### A11y
 - check accessibility
 
 ### moveHistory
 - add moveHistory modal, which shows:
-  -- add actual stats from state! DONE.
   -- average win round
   -- how many times won with X
   -- how many times won with O
 
-### Gameboard
--- make it look disabled, when disabled
+### Backend
+- add .json server and HTTP logic (axios)

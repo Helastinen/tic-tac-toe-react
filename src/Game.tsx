@@ -156,12 +156,12 @@ const calculateStats = (gameStats: GameStats, winningValue: Cell | undefined, gr
   const updatedStats = { ...gameStats, gamesPlayed: gameStats.gamesPlayed + 1 };
 
   if (isTieGame(winningValue, grid)) {
-    console.log("ties updated");
+    // console.log("ties updated");
     return { ...updatedStats, ties: gameStats.ties + 1 };
   }
 
   if (winningValue === PlayerMark.X) {
-    console.log("winningValue X updated");
+    // console.log("winningValue X updated");
     return { ...updatedStats, playerOneWins: gameStats.playerOneWins + 1 };
   }
 

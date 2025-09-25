@@ -7,10 +7,19 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 import Game from "./Game";
+import Container from "@mui/material/Container";
 
 const root = createRoot(document.getElementById("root"));
 root.render(
   <StrictMode>
-    <Game />
+    <Container
+      maxWidth="false"
+      sx={{
+        width: {xs: "100%", lg: "60%"},
+        maxWidth: "1200px"
+      }}
+      >
+      <Game />
+    </Container>
   </StrictMode>
 );

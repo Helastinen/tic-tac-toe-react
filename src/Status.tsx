@@ -27,7 +27,7 @@ const Status = ({ winningValue, nextPlayer, players, grid, gameStarted, moveHist
   };
 
   return (
-    <p>
+    <p className="status">
       {gameStarted && getMessage(winningValue, grid)}
     </p>
   )

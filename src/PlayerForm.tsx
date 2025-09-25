@@ -10,8 +10,14 @@ import { useState } from "react";
 import GameStatsDialog from "./GameStatsDialog";
 
 const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted, gameStats }: PlayerFormProps) => {
-  const [error, setError] = useState(false);
-  const [helperText, setHelperText] = useState("");
+  const [errors, setErrors] = useState<({ [key: string]: boolean})>({
+    playerOne: false,
+    playerTwo: false,
+  });
+  const [helperTexts, setHelperTexts] = useState<({ [key: string]: string })>({
+    playerOne: "",
+    playerTwo: "",
+  });
   const [openStatsDialog, setOpenStatsDialog] = useState(false);
 
   // console.log("<PlayerForm> players: ", players);
@@ -19,7 +25,7 @@ const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted, gameStats }
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     // console.log("<PlayerForm> e: ", e);
     const {name, value} = e.target;
-    validate(value);
+    validate(name, value);
     setPlayers(prev => ({ ...prev, [name]: value }) as Players)
   };
 
@@ -31,25 +37,27 @@ const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted, gameStats }
     setOpenStatsDialog(false);
   }
 
-  const validate = (input: string) => {
+  const validate = (name: string, input: string) => {
     const trimmedInput = input.trim();
 
+    let error = false;
+    let text = "";
+
     if (trimmedInput === "") {
-      setError(true);
-      setHelperText("This field is required");
+      error = true;
+      text = "This field is required";
     }
     else if (trimmedInput.length > 20) {
-      setError(true);
-      setHelperText("Maximum 20 characters");
+      error = true;
+      text = "Maximum 20 characters";
     }
     else if (trimmedInput.length < 3) {
-      setError(true);
-      setHelperText("Minimum 3 characters");
+      error = true;
+      text = "Minimum 3 characters";
     }
-    else {
-      setError(false);
-      setHelperText("");
-    }
+
+    setErrors({...errors, [name]: error});
+    setHelperTexts({...helperTexts, [name]: text});
   };
 
   return (
@@ -57,9 +65,9 @@ const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted, gameStats }
       <Grid 
         container
         spacing={1}   
-        sx={{ justifyContent: "center",alignItems: "center" }}
+        sx={{ justifyContent: "space-evenly", alignItems: "center" }}
       >
-        <Grid size={{xs: 12, md: 3}}>
+        <Grid size={{ xs: 12 }}>
           {!gameStarted && <Typography color="primary" >Enter players:</Typography>}
           <Grid 
             container
@@ -68,8 +76,8 @@ const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted, gameStats }
           >
             <TextField
               disabled={gameStarted}
-              error={error}
-              helperText={helperText}
+              error={errors.playerOne}
+              helperText={helperTexts.playerOne}
               id="One"
               name="playerOne"
               label="Player One (X)"
@@ -79,8 +87,8 @@ const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted, gameStats }
             ></TextField>
             <TextField
               disabled={gameStarted}
-              error={error}
-              helperText={helperText}
+              error={errors.playerTwo}
+              helperText={helperTexts.playerTwo}
               id="playerTwo"
               name="playerTwo"
               label="Player Two (O)"
@@ -91,13 +99,13 @@ const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted, gameStats }
           </Grid>
         </Grid>
         <Grid
-          size={{xs: 12, md: 3}}
+          size={{ xs: 12 }}
           display="flex"
           justifyContent="center"
           alignItems="center"
         >
           <Button
-            disabled={error}
+            disabled={errors.playerOne || errors.playerTwo}
             variant="contained"
             onClick={() => onStartGame(players)}
             sx={{ margin: "1rem" }}
