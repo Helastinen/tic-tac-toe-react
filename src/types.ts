@@ -40,8 +40,9 @@ export interface StatusProps {
 export interface SquareProps {
   winningLine: WinningLine | undefined;
   index: number;
-  value: Nullable<PlayerMark>
+  value: Nullable<PlayerMark>;
   onSquareClick: () => void;
+  disabled?: boolean;
 }
 
 export interface InteractiveGridBoardProps {

@@ -1,9 +1,11 @@
 import React from "react";
-import { PlayerMark, SquareProps } from "./types";
+import { Nullable, PlayerMark, SquareProps, WinningLine } from "./types";
 
-const Square = ({ onSquareClick, index, value, winningLine}: SquareProps) => {
+const Square = ({ onSquareClick, index, value, winningLine, disabled }: SquareProps) => {
   const getSquareColor = () => {
-    if (winningLine?.includes(index)) return `square winning-square`;
+    if (winningLine?.includes(index)) return "square square-winning";
+    
+    if (disabled) return "square square-disabled";
 
     switch (value) {
       case PlayerMark.X:
@@ -13,10 +15,26 @@ const Square = ({ onSquareClick, index, value, winningLine}: SquareProps) => {
       default:
         return "square";
     }
+
   }
 
+  const getAriaLabel = (index: number, value: Nullable<PlayerMark>, winningLine: WinningLine | undefined) => {
+    const row = Math.floor(index / 3) + 1;
+    const col = (index % 3) + 1;
+    const content = value ? `contains ${value}` : "empty";
+    const inWinningline = winningLine?.includes(index) ? 'part of winning line': "";
+
+    return `Square at row ${row}, column ${col}, ${content}, ${inWinningline}`;
+  };
+
   return (
-    <button className={getSquareColor()} onClick={onSquareClick}>
+    <button 
+      aria-label={getAriaLabel(index, value, winningLine)}
+      tabIndex={disabled ? -1 : 0}
+      className={getSquareColor()} onClick={onSquareClick}
+      disabled={disabled}
+      aria-disabled={disabled}
+    >
       {value}
     </button>
   )

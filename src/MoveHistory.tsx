@@ -13,11 +13,12 @@ const MoveHistory = ({ moveHistory, players } : MoveHistoryProps) => {
   return (
     <> 
       <Typography 
-        variant="h5"
+        variant="h2"
         color="info"
         sx={{ 
           textAlign:"left",
-          margin:"2rem 0 1rem 1rem"
+          margin:"2rem 0 1rem 1rem",
+          fontSize: "2rem",
         }}
       >
         Move history

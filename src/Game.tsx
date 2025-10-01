@@ -29,6 +29,7 @@ const Game = () => {
 
   const [winningResult, setWinningResult] = useState<WinningResult>(null);
   const [gameStarted, setGameStarted] = useState(false);
+  const [gameAborted, setGameAborted] = useState(false);
   const [gameStats, setGameStats] = useState<GameStats>({ 
     gamesPlayed: 0,
     playerOneWins: 0,
@@ -58,25 +59,33 @@ const Game = () => {
     console.log("<Game> -> handlePlayerMove(): winValue", winValue);
 
     if (result || tieGame) {
-      console.log("<Game> -> handlePlayerMove(): setGameStats triggered!");
-      setGameStats(calculateStats(gameStats, winValue, nextGrid));
+      // setGameStats(calculateStats(gameStats, winValue, nextGrid));
+      handleEndGame(winValue, nextGrid)
     }
   };
+
+  const handleEndGame = (
+    winValue: Cell | undefined = undefined,
+    nextGrid: GameBoard = [],
+    aborted: boolean = false,
+  ) => {
+    console.log("<Game> -> handleEndGame() triggered!");
+    setGameStats(calculateStats(gameStats, winValue, nextGrid, aborted));
+    setGameStarted(false);
+  }
 
   const handleStartGame = (players: Players) => {
     setWinningResult(null);
     setNextPlayer(PlayerMark.O);
     setMoveHistory([Array(9).fill(null)]);
     setPlayers(players);
+    setGameStarted(true);
 
+    // game has been aborted, if user starts new game during existing game
     if (gameStarted) {
-      // game has been aborted, if user starts new game during existing game
-      setGameStats({ ...gameStats, aborted: gameStats.aborted + 1 });
-      // allow user to change player names
-      setGameStarted(false);
-    } else {
-      setGameStarted(true);
-    }
+      setGameAborted(true);
+      handleEndGame(undefined, [], true);
+    } 
   };
 
   if (!currentGrid) return <div>Loading board...</div>;
@@ -84,9 +93,9 @@ const Game = () => {
   return (
     <>
       <Typography 
-        variant="h4"
+        variant="h1"
         color="primary"
-        sx={{ textAlign:"center", margin:"1rem" }}
+        sx={{ textAlign:"center", margin:"1rem", fontSize: "4rem" }}
       >
         Tic-Tac-Toe
       </Typography>
@@ -152,20 +161,26 @@ const calculateWinningResult = (grid: GameBoard) => {
   return null;
 }
 
-const calculateStats = (gameStats: GameStats, winningValue: Cell | undefined, grid: GameBoard) => {
+const calculateStats = (gameStats: GameStats, winningValue: Cell | undefined = undefined, grid: GameBoard = [], gameAborted: boolean): GameStats => {
   const updatedStats = { ...gameStats, gamesPlayed: gameStats.gamesPlayed + 1 };
 
+  if (gameAborted) {
+    console.log("aborted updated");
+    return { ...updatedStats, aborted: gameStats.aborted + 1 };
+  }
+
   if (isTieGame(winningValue, grid)) {
-    // console.log("ties updated");
+    console.log("ties updated");
     return { ...updatedStats, ties: gameStats.ties + 1 };
   }
 
   if (winningValue === PlayerMark.X) {
-    // console.log("winningValue X updated");
+    console.log("winningValue X updated");
     return { ...updatedStats, playerOneWins: gameStats.playerOneWins + 1 };
   }
 
   if (winningValue === PlayerMark.O) {
+    console.log("winningValue O updated");
     return { ...updatedStats, playerTwoWins: gameStats.playerTwoWins + 1 };
   }
 

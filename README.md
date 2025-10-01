@@ -17,10 +17,13 @@ If you are developing a production application, we recommend using TypeScript wi
 - check accessibility
 
 ### moveHistory
-- add moveHistory modal, which shows:
+- add:
   -- average win round
   -- how many times won with X
   -- how many times won with O
 
 ### Backend
 - add .json server and HTTP logic (axios)
+
+### Unit tests
+- add basic tests

@@ -4,6 +4,7 @@ import { PlayerFormProps, Players } from "./types";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField"
 import Typography from "@mui/material/Typography"
+import BarChartIcon from '@mui/icons-material/BarChart';
 
 import { useState } from "react";
 
@@ -68,14 +69,13 @@ const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted, gameStats }
         sx={{ justifyContent: "space-evenly", alignItems: "center" }}
       >
         <Grid size={{ xs: 12 }}>
-          {!gameStarted && <Typography color="primary" >Enter players:</Typography>}
+          {!gameStarted && <Typography color="primary">Enter players:</Typography>}
           <Grid 
             container
             spacing={0}   
             sx={{ justifyContent: "center", alignItems: "center" }}
           >
             <TextField
-              disabled={gameStarted}
               error={errors.playerOne}
               helperText={helperTexts.playerOne}
               id="One"
@@ -86,7 +86,6 @@ const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted, gameStats }
               onChange={handleChange}
             ></TextField>
             <TextField
-              disabled={gameStarted}
               error={errors.playerTwo}
               helperText={helperTexts.playerTwo}
               id="playerTwo"
@@ -112,7 +111,12 @@ const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted, gameStats }
           >
             {gameStarted ? "New Game" : "Start game"}
           </Button>
-          <Button variant="outlined" onClick={handleStatsDialogOpen}>Stats</Button>
+          <Button 
+            variant="outlined"
+            startIcon={<BarChartIcon />}
+            onClick={handleStatsDialogOpen}>
+            Stats
+          </Button>
           <GameStatsDialog 
             open={openStatsDialog}  
             onClose={handleStatsDialogClose}

@@ -31,8 +31,8 @@ const GridBoard = (props: GridBoardProps) => {
     if (!isInteractiveGridBoardProps(props)) {
       return "gridboard-move-history"
     }
-
-    return disabled ? "gridboard-disabled" : "";
+    return "";
+    // return disabled ? "gridboard-disabled" : "";
   }
 
   return (
@@ -54,6 +54,7 @@ const GridBoard = (props: GridBoardProps) => {
               return (
                 <Grid size={{xs: 4}} key={i}>
                   <Square
+                    disabled={disabled}
                     onSquareClick={() => handleClick(i)}
                     index={i}
                     value={props.grid[i]}
