@@ -3,8 +3,13 @@ import { Nullable, PlayerMark, SquareProps, WinningLine } from "./types";
 
 const Square = ({ onSquareClick, index, value, winningLine, disabled }: SquareProps) => {
   const getSquareColor = () => {
-    if (winningLine?.includes(index)) return "square square-winning";
-    
+    if (winningLine) {
+      return winningLine.includes(index)
+        ? "square square-winning" 
+        : "square square-nonwinning";
+    }
+
+    // used for squares in MoveHistory
     if (disabled) return "square square-disabled";
 
     switch (value) {

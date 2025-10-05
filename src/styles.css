@@ -43,13 +43,16 @@ ul {
 }
 
 .square-disabled {
-  filter: grayscale(100%);
-  opacity: 0.3;
+  color: black;
   pointer-events: none;
 }
 
 .square-winning {
   color: red;
+}
+
+.square-nonwinning {
+  filter: grayscale(100%);
 }
 
 .board {
