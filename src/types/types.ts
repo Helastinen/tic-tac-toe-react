@@ -21,7 +21,6 @@ export type Players = null | {
   playerTwo: string;
 }
 export type GameStats = {
-  gamesPlayed: number;
   playerOneWins: number;
   playerTwoWins: number;
   ties: number;

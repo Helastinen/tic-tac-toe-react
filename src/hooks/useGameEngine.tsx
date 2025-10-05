@@ -25,7 +25,6 @@ export const useGameEngine = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameAborted, setGameAborted] = useState(false);
   const [gameStats, setGameStats] = useState<GameStats>({ 
-    gamesPlayed: 0,
     playerOneWins: 0,
     playerTwoWins: 0,
     ties: 0,

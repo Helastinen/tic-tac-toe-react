@@ -13,12 +13,13 @@ import GamesIcon from '@mui/icons-material/Games';
 import DialogContent from '@mui/material/DialogContent';
 
 const GameStatsDialog = ({open, onClose, gameStats }: GameStatsDialogProps) => {
+  const { playerOneWins, playerTwoWins, ties, aborted } = gameStats;
   const stats = [
-    { name: "Games Played", value: gameStats.gamesPlayed },
-    { name: "Player One wins", value: gameStats.playerOneWins },
-    { name: "Player Two wins", value: gameStats.playerTwoWins },
-    { name: "Ties", value: gameStats.ties },
-    { name: "Aborted", value: gameStats.aborted },
+    { name: "Games Played", value: playerOneWins + playerTwoWins + ties + aborted },
+    { name: "Player One wins", value: playerOneWins },
+    { name: "Player Two wins", value: playerTwoWins },
+    { name: "Ties", value: ties },
+    { name: "Aborted", value: aborted },
   ];
 
   return (
