@@ -2,8 +2,8 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 
 import GridBoard from "./GridBoard";
-import MoveHistory from "./MoveHistory";
 import PlayerForm from "./PlayerForm";
+import MoveHistory from "./MoveHistory";
 import Status from "./Status";
 
 import { 

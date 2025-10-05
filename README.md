@@ -13,8 +13,8 @@ If you are developing a production application, we recommend using TypeScript wi
 
 
 ## Todo list
-### A11y
-- check accessibility
+## refactoring
+- isolate game logic into it's own hook useGameLogic()
 
 ### moveHistory
 - add:
