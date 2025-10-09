@@ -37,6 +37,7 @@ const GridBoard = (props: GridBoardProps) => {
   return (
     <Grid 
       container
+      data-testid="game-grid"
       spacing={2}
       className={getClassName()}
       sx={{ 
