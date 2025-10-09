@@ -7,6 +7,7 @@ import MoveHistory from "./components/MoveHistory";
 import Status from "./components/Status";
 
 import { useGameEngine } from "./hooks/useGameEngine";
+import { UI_TEXT } from "./constants/uiText";
 
 const Game = () => {
   const {
@@ -41,7 +42,7 @@ const Game = () => {
           fontSize: "4rem"
         }}
       >
-        Tic-Tac-Toe
+        {UI_TEXT.GAME.TITLE}
       </Typography>
       <PlayerForm 
         players={players}
@@ -59,7 +60,7 @@ const Game = () => {
         moveHistory={moveHistory}
       />
       <div className="board">
-        <GridBoard
+       <GridBoard
           disabled={!gameStarted}
           mode="interactive"
           winningLine={winningLine}

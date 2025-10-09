@@ -14,15 +14,16 @@ import GamesIcon from '@mui/icons-material/Games';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import { getSafeStats } from '../utils/statsHelper';
+import { UI_TEXT } from '../constants/uiText';
 
 const GameStatsDialog = ({open, onClose, gameStats }: GameStatsDialogProps) => {
   const { playerOneWins, playerTwoWins, ties, aborted } = getSafeStats(gameStats);
   const stats = [
-    { name: "Games Played", value: playerOneWins + playerTwoWins + ties + aborted },
-    { name: "Player One wins", value: playerOneWins },
-    { name: "Player Two wins", value: playerTwoWins },
-    { name: "Ties", value: ties },
-    { name: "Aborted", value: aborted },
+    { name: UI_TEXT.STATS.GAMES_PLAYED, value: playerOneWins + playerTwoWins + ties + aborted },
+    { name: UI_TEXT.STATS.PLAYER_ONE_WINS, value: playerOneWins },
+    { name: UI_TEXT.STATS.PLAYER_TWO_WINS, value: playerTwoWins },
+    { name: UI_TEXT.STATS.TIES, value: ties },
+    { name: UI_TEXT.STATS.ABORTED, value: aborted },
   ];
 
   return (
@@ -38,7 +39,7 @@ const GameStatsDialog = ({open, onClose, gameStats }: GameStatsDialogProps) => {
         color="primary"
         sx={{ fontSize: "2.5rem" }}
       >
-        Game Statistics
+        {UI_TEXT.STATS.TITLE}
       </DialogTitle>
       <IconButton
         aria-label="close"

@@ -3,6 +3,8 @@ import axios from "axios";
 
 import { calculateStats, calculateWinningResult } from "../logic/GameLogic";
 import { isTieGame, togglePlayer } from "../utils/utils";
+import { CONFIG } from "../constants/config";
+import { getSafeStats } from "../utils/statsHelper";
 
 import { 
   Cell,
@@ -13,7 +15,6 @@ import {
   Players,
   WinningResult
 } from "../types/types";
-import { getSafeStats } from "../utils/statsHelper";
 
 export const useGameEngine = () => {
   const [moveHistory, setMoveHistory] = useState<MoveHistoryType>([Array(9).fill(null)]);
@@ -33,7 +34,7 @@ export const useGameEngine = () => {
   useEffect(() => {
     const getStats = async () => {
       try {
-        const res = await axios.get("http://localhost:3001/stats");
+        const res = await axios.get(`${CONFIG.API_BASE_URL}/stats`);
         setGameStats(res.data);
       }
       catch (error) {
@@ -88,7 +89,7 @@ export const useGameEngine = () => {
     setGameStarted(false);
 
     try {
-      await axios.put("http://localhost:3001/stats", updatedStats);
+      await axios.put(`${CONFIG.API_BASE_URL}/stats`, updatedStats);
       console.log("Stats updated to server: ", updatedStats);
     } catch (error) {
       console.error("Failed to persist stats: ", error);

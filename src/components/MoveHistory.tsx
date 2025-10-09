@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid";
 import GridBoard from "./GridBoard";
 import { MoveHistoryProps } from "../types/types";
 import Typography from "@mui/material/Typography";
+import { UI_TEXT } from "../constants/uiText";
 
 const MoveHistory = ({ moveHistory, players } : MoveHistoryProps) => {
   // show turns only if there have been at least two moves
@@ -21,7 +22,7 @@ const MoveHistory = ({ moveHistory, players } : MoveHistoryProps) => {
           fontSize: "2rem",
         }}
       >
-        Move history
+        {UI_TEXT.HISTORY.TITLE}
       </Typography>
       <Grid 
         container

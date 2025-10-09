@@ -1,3 +1,4 @@
+import { UI_TEXT } from '../constants/uiText';
 import { Cell, StatusProps, PlayerMark } from '../types/types';
 import { isTieGame, togglePlayer } from '../utils/utils';
 
@@ -18,7 +19,7 @@ const Status = ({ winningValue, nextPlayer, players, grid, gameStarted, moveHist
     if (!isGameActiveOrEnded) return null;
     
     if (isTieGame (winningValue, grid)) {
-      return <span>Tie game.</span>
+      return <span>{UI_TEXT.STATUS.TIE}</span>
     }
     
     if (winningValue) {

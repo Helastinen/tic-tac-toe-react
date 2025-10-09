@@ -9,6 +9,7 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import { useState } from "react";
 
 import GameStatsDialog from "./GameStatsDialog";
+import { UI_TEXT } from "../constants/uiText";
 
 const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted, gameStats }: PlayerFormProps) => {
   const [errors, setErrors] = useState<({ [key: string]: boolean})>({
@@ -75,7 +76,7 @@ const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted, gameStats }
               variant="h6"
               sx={{ textAlign:"center" }}
             >
-              Enter players:
+              {UI_TEXT.PLAYER_FORM.ENTER_PLAYERS}
             </Typography>
           }
           <Grid 
@@ -86,9 +87,9 @@ const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted, gameStats }
             <TextField
               error={errors.playerOne}
               helperText={helperTexts.playerOne}
-              id="One"
+              id="playerOne"
               name="playerOne"
-              label="Player One (X)"
+              label={UI_TEXT.PLAYER_FORM.PLAYER_ONE_LABEL}
               variant="outlined"
               sx={{ margin: "1rem" }}
               onChange={handleChange}
@@ -98,7 +99,7 @@ const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted, gameStats }
               helperText={helperTexts.playerTwo}
               id="playerTwo"
               name="playerTwo"
-              label="Player Two (O)"
+              label={UI_TEXT.PLAYER_FORM.PLAYER_TWO_LABEL}
               variant="outlined"
               sx={{ margin: "1rem" }}
               onChange={handleChange}
@@ -117,13 +118,13 @@ const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted, gameStats }
             onClick={() => onStartGame(players)}
             sx={{ margin: "1rem" }}
           >
-            {gameStarted ? "New Game" : "Start game"}
+            {gameStarted ? UI_TEXT.GAME.NEW : UI_TEXT.GAME.START}
           </Button>
           <Button 
             variant="outlined"
             startIcon={<BarChartIcon />}
             onClick={handleStatsDialogOpen}>
-            Stats
+            {UI_TEXT.GAME.STATS}
           </Button>
           <GameStatsDialog 
             open={openStatsDialog}  
