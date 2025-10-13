@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import { UI_TEXT } from "../constants/uiText";
 
 const MoveHistory = ({ moveHistory, players } : MoveHistoryProps) => {
-  // show turns only if there have been at least two moves
+  // show history only if there have been at least two moves
   const hasHistory = moveHistory.length > 2;
 
   if(!hasHistory) return null;

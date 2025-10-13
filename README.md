@@ -13,6 +13,11 @@ If you are developing a production application, we recommend using TypeScript wi
 
 
 ## Todo list
+### json server
+- add single game stats
+-- who one
+-- what turn
+
 ### moveHistory
 - add:
   -- average win round

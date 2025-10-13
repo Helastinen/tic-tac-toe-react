@@ -65,27 +65,61 @@ describe("GridBoard", () => {
     expect(screen.getAllByRole("button")).toHaveLength(9);
   });
 
-  test("clicking empty square triggers PlayerMove", () => {
-    const mockGridBoard = createGridBoard();
-    render(mockGridBoard);
+  describe("Interactive GridBoard", () => {
+    test("clicking empty square triggers PlayerMove", () => {
+      const mockGridBoard = createGridBoard();
+      render(mockGridBoard);
 
-    const squareButtons = screen.getAllByRole("button");
-    squareButtons[0].click();
+      const squareButtons = screen.getAllByRole("button");
+      squareButtons[0].click();
 
-    expect(mockMove).toHaveBeenCalledTimes(1);
-    expect(mockMove).toHaveBeenCalledWith(expect.any(Array), PlayerMark.X);
+      expect(mockMove).toHaveBeenCalledTimes(1);
+      expect(mockMove).toHaveBeenCalledWith(expect.any(Array), PlayerMark.X);
+    });
+
+    test("clicking a filled square does nothing", () => {
+      const filledGrid = [...mockGrid]; 
+      filledGrid[0] = PlayerMark.X;
+
+      const mockGridBoard = createGridBoard({ grid: filledGrid });
+      render(mockGridBoard);
+  
+      const squareButtons = screen.getAllByRole("button");
+      squareButtons[0].click();
+
+      expect(mockMove).not.toHaveBeenCalled();
+    });
+
+    test("clicking a square after game has ended does nothing", () => {
+      const filledGrid: GameBoard = [
+        PlayerMark.X, PlayerMark.O, null,
+        PlayerMark.X, PlayerMark.O, null,
+        PlayerMark.X, null, null
+      ];
+
+      const mockGridBoard = createGridBoard({ grid: filledGrid, winningLine: [0,3,6] });
+      render(mockGridBoard);
+  
+      const squareButtons = screen.getAllByRole("button");
+      squareButtons[2].click();
+
+      expect(mockMove).not.toHaveBeenCalled();
+    });
   });
 
-  test("clicking a filled square does nothing", () => {
-    const filledGrid = [...mockGrid]; 
-    filledGrid[0] = PlayerMark.X;
+  describe("MoveHistory GridBoard", () => {
+    test("has no interaction", () => {
+      const mockGridBoard = createGridBoard({ mode: "moveHistory", disabled: true });
+      render(mockGridBoard);
 
-    const mockGridBoard = createGridBoard({ grid: filledGrid });
-    render(mockGridBoard);
- 
-    const squareButtons = screen.getAllByRole("button");
-    squareButtons[0].click();
+      const buttons = screen.getAllByRole("button");
+      expect(buttons).toHaveLength(9);
 
-    expect(mockMove).not.toHaveBeenCalled();
+      buttons.forEach(button => {
+        expect(button).toBeDisabled();
+      });
+
+      expect(mockMove).not.toHaveBeenCalled();
+    });
   });
-})
+});
