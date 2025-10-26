@@ -12,13 +12,13 @@ import { UI_TEXT } from "./constants/uiText";
 const Game = () => {
   const {
     moveHistory,
-    nextPlayer,
+    currentPlayer,
     players,
     winningValue,
     winningLine,
     gameStarted,
     gameStats,
-    currentGrid,
+    currentMove,
     handlePlayerMove,
     handleStartGame,
     setPlayers,
@@ -27,9 +27,9 @@ const Game = () => {
   console.log("----------NEW RENDER--------");;
   // console.log("<Game> players: ", players);
   // console.log("<Game> moveHistory: ", moveHistory);
-  console.log("<Game> gameStats: ", gameStats);
+  // console.log("<Game> gameStats: ", gameStats);
 
-  if (!currentGrid) return <CircularProgress />;
+  if (!currentMove) return <CircularProgress />;
 
   return (
     <>
@@ -53,9 +53,9 @@ const Game = () => {
       ></PlayerForm>
       <Status
         winningValue={winningValue}
-        nextPlayer={nextPlayer}
+        currentPlayer={currentPlayer}
         players={players}
-        grid={currentGrid}
+        grid={currentMove}
         gameStarted={gameStarted}
         moveHistory={moveHistory}
       />
@@ -64,8 +64,8 @@ const Game = () => {
           disabled={!gameStarted}
           mode="interactive"
           winningLine={winningLine}
-          nextPlayer={nextPlayer}
-          grid={currentGrid}
+          currentPlayer={currentPlayer}
+          grid={currentMove}
           OnPlayerMove={handlePlayerMove}
         />
       </div>

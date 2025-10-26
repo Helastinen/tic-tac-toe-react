@@ -15,13 +15,14 @@ import {
   Players,
   WinningResult
 } from "../types/types";
+import { UI_TEXT } from "../constants/uiText";
 
 export const useGameEngine = () => {
   const [moveHistory, setMoveHistory] = useState<MoveHistoryType>([Array(9).fill(null)]);
-  const [nextPlayer, setNextPlayer] = useState<PlayerMark>(PlayerMark.O);
+  const [currentPlayer, setCurrentPlayer] = useState<PlayerMark>(PlayerMark.O);
   const [players, setPlayers] = useState<Players>({
-    playerOne: "Player One (X)",
-    playerTwo: "Player Two (O)",
+    playerOne: UI_TEXT.PLAYER_FORM.PLAYER_ONE_LABEL,
+    playerTwo: UI_TEXT.PLAYER_FORM.PLAYER_TWO_LABEL,
   });
 
   const [winningResult, setWinningResult] = useState<WinningResult>(null);
@@ -44,13 +45,13 @@ export const useGameEngine = () => {
     getStats();
   }, []);
 
-  const currentGrid: GameBoard = moveHistory[moveHistory.length - 1];
+  const currentMove: GameBoard = moveHistory[moveHistory.length - 1];
   const winningValue: Cell | undefined = winningResult?.cell;
   const winningLine = winningResult?.winningLine;
 
   const handleStartGame = (players: Players) => {
     setWinningResult(null);
-    setNextPlayer(PlayerMark.O);
+    setCurrentPlayer(PlayerMark.O);
     setMoveHistory([Array(9).fill(null)]);
     setPlayers(players);
     setGameStarted(true);
@@ -62,29 +63,29 @@ export const useGameEngine = () => {
     } 
   };
 
-  const handlePlayerMove = (nextGrid: GameBoard, nextPlayer: PlayerMark) => {
-    const result = calculateWinningResult(nextGrid);
+  const handlePlayerMove = (currentMove: GameBoard, currentPlayer: PlayerMark) => {
+    const result = calculateWinningResult(currentMove);
     const winValue: Cell | undefined = result?.cell;
-    const tieGame = isTieGame(winValue, nextGrid);
+    const tieGame = isTieGame(winValue, currentMove);
 
-    setNextPlayer(togglePlayer(nextPlayer));
-    setMoveHistory([...moveHistory, nextGrid]);
+    setCurrentPlayer(togglePlayer(currentPlayer));
+    setMoveHistory([...moveHistory, currentMove]);
     setWinningResult(result);
     console.log("<Game> -> handlePlayerMove(): result", result);
     console.log("<Game> -> handlePlayerMove(): winValue", winValue);
 
     if (result || tieGame) {
-      handleEndGame(winValue, nextGrid);
+      handleEndGame(winValue, currentMove);
     }
   };
 
   const handleEndGame = async (
     winValue: Cell | undefined = undefined,
-    nextGrid: GameBoard = [],
+    currentMove: GameBoard = [],
     aborted: boolean = false,
   ) => {
     console.log("<Game> -> handleEndGame() triggered!");
-    const updatedStats = (calculateStats(safeStats, winValue, nextGrid, aborted));
+    const updatedStats = (calculateStats(safeStats, winValue, currentMove, aborted));
     setGameStats(updatedStats);
     setGameStarted(false);
 
@@ -98,16 +99,17 @@ export const useGameEngine = () => {
 
   return {
     moveHistory,
-    nextPlayer,
+    currentPlayer,
     players,
     winningResult,
     gameStarted,
     gameStats,
-    currentGrid,
+    currentMove,
     winningValue,
     winningLine,
     handlePlayerMove,
     handleStartGame,
+    handleEndGame,
     setPlayers,
   }
 };

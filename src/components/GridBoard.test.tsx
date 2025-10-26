@@ -11,14 +11,14 @@ const createGridBoard = ({
   disabled = false,
   mode = "interactive",
   winningLine = undefined,
-  nextPlayer = PlayerMark.X,
+  currentPlayer = PlayerMark.X,
   grid = mockGrid,
   OnPlayerMove = mockMove,
 } : {
   grid?: GameBoard;
   disabled?: boolean;
-  nextPlayer?: PlayerMark;
-  OnPlayerMove?: (nextGrid: GameBoard, nextPlayer: PlayerMark) => void;
+  currentPlayer?: PlayerMark;
+  OnPlayerMove?: (currentMove: GameBoard, currentPlayer: PlayerMark) => void;
   winningLine?: WinningLine | undefined;
   mode?: "interactive" | "moveHistory";
 } = {} ) => {
@@ -28,7 +28,7 @@ const createGridBoard = ({
         disabled={disabled}
         mode="interactive"
         winningLine={winningLine}
-        nextPlayer={nextPlayer}
+        currentPlayer={currentPlayer}
         grid={grid}
         OnPlayerMove={OnPlayerMove}
       />

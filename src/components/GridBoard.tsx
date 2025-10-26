@@ -8,23 +8,23 @@ const GridBoard = (props: GridBoardProps) => {
   // console.log("<GridBoard> gridBoard: ", props.grid);
   const { grid, disabled } = props;
 
-  let nextPlayer: PlayerMark | undefined;
-  let OnPlayerMove: ((nextGrid: GameBoard, nextPlayer: PlayerMark) => void) | undefined;
+  let currentPlayer: PlayerMark | undefined;
+  let OnPlayerMove: ((currentMove: GameBoard, currentPlayer: PlayerMark) => void) | undefined;
   let winningLine: number[] | undefined;
 
   if (isInteractiveGridBoardProps(props)) {
-    nextPlayer = props.nextPlayer;
+    currentPlayer = props.currentPlayer;
     OnPlayerMove = props.OnPlayerMove;
     winningLine = props.winningLine;
   }
 
   const handleClick = (i: number) => {
     // do nothing if square has already value or game has ended
-    if (disabled || grid[i] || winningLine || !nextPlayer) return;
+    if (disabled || grid[i] || winningLine || !currentPlayer) return;
 
-    const nextGrid = [...grid];
-    nextGrid[i] = togglePlayer(nextPlayer);
-    OnPlayerMove?.(nextGrid, nextPlayer);
+    const updatedGrid = [...grid];
+    updatedGrid[i] = togglePlayer(currentPlayer);
+    OnPlayerMove?.(updatedGrid, currentPlayer);
   }
 
   const getClassName = (): string => {

@@ -29,7 +29,7 @@ export type GameStats = {
 
 export interface StatusProps {
   winningValue: Cell | undefined;
-  nextPlayer: PlayerMark;
+  currentPlayer: PlayerMark;
   players: Players;
   grid: GameBoard;
   gameStarted: boolean;
@@ -47,8 +47,8 @@ export interface SquareProps {
 export interface InteractiveGridBoardProps {
   mode: "interactive";
   grid: GameBoard;
-  nextPlayer: PlayerMark;
-  OnPlayerMove: (nextGrid: GameBoard, nextPlayer: PlayerMark) => void;
+  currentPlayer: PlayerMark;
+  OnPlayerMove: (currentMove: GameBoard, currentPlayer: PlayerMark) => void;
   winningLine?: WinningLine | undefined;
   disabled?: boolean;
 };

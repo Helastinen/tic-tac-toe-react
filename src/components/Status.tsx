@@ -2,9 +2,9 @@ import { UI_TEXT } from '../constants/uiText';
 import { Cell, StatusProps, PlayerMark } from '../types/types';
 import { isTieGame, togglePlayer } from '../utils/utils';
 
-const Status = ({ winningValue, nextPlayer, players, grid, gameStarted, moveHistory }: StatusProps) => {
-  const getNextPlayerName = (): string | undefined => {
-    return togglePlayer(nextPlayer) === PlayerMark.X ? players?.playerOne : players?.playerTwo;
+const Status = ({ winningValue, currentPlayer, players, grid, gameStarted, moveHistory }: StatusProps) => {
+  const getCurrentPlayerName = (): string | undefined => {
+    return togglePlayer(currentPlayer) === PlayerMark.X ? players?.playerOne : players?.playerTwo;
   };
 
   const getWinningPlayerName = (winner: Cell): string | undefined => {
@@ -32,7 +32,7 @@ const Status = ({ winningValue, nextPlayer, players, grid, gameStarted, moveHist
 
     return (
       <span>
-        Turn <strong>{moveHistory.length}</strong>: You're up <strong>{getNextPlayerName()}</strong>.
+        Turn <strong>{moveHistory.length}</strong>: You're up <strong>{getCurrentPlayerName()}</strong>.
       </span>
     )
   };
