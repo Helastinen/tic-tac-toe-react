@@ -5,35 +5,31 @@ import axios from "axios";
 
 import { useGameEngine } from "./useGameEngine";
 import { GameBoard, GameStats, PlayerMark, Players } from "../types/types";
-import { UI_TEXT } from "../constants/uiText";
 import { defaultStats } from "../utils/statsHelper";
+import { mockEmptyGrid, mockEmptyMoveHistory, mockPlayers } from "../constants/testing_mocks";
 
-const players = {
-  playerOne: UI_TEXT.PLAYER_FORM.PLAYER_ONE_LABEL,
-  playerTwo: UI_TEXT.PLAYER_FORM.PLAYER_TWO_LABEL
-};
 vi.mock("axios");
 
 describe("useGameEngine", () => {
   test("initial state is correct", () => {    
     const { result } = renderHook(() => useGameEngine());
 
-    expect(result.current.moveHistory).toEqual([Array(9).fill(null)]);
+    expect(result.current.moveHistory).toEqual(mockEmptyMoveHistory);
     expect(result.current.currentPlayer).toEqual(PlayerMark.O);
-    expect(result.current.players).toEqual(players);
+    expect(result.current.players).toEqual(mockPlayers);
     expect(result.current.gameStarted).toBe(false);
     expect(result.current.winningResult).toBe(null);
   });
 
   test("handleStartGame resets state and sets players", () => {    
     const { result } = renderHook(() => useGameEngine());
-    const newPlayers: Players = { playerOne: "new Player1", playerTwo: "new PlayerTwo" };
+    const newMockPlayers: Players = { playerOne: "new Player1", playerTwo: "new PlayerTwo" };
 
-    act(() => result.current.handleStartGame(newPlayers));
+    act(() => result.current.handleStartGame(newMockPlayers));
 
-    expect(result.current.moveHistory).toEqual([Array(9).fill(null)]);
+    expect(result.current.moveHistory).toEqual(mockEmptyMoveHistory);
     expect(result.current.currentPlayer).toEqual(PlayerMark.O);
-    expect(result.current.players).toEqual(newPlayers);
+    expect(result.current.players).toEqual(newMockPlayers);
     expect(result.current.gameStarted).toBe(true);
     expect(result.current.winningResult).toBe(null);
   });
@@ -48,7 +44,7 @@ describe("useGameEngine", () => {
 
     act(() => result.current.handlePlayerMove(currentMove, PlayerMark.X));
 
-    expect(result.current.moveHistory).toEqual([Array(9).fill(null), currentMove]);
+    expect(result.current.moveHistory).toEqual([mockEmptyGrid, currentMove]);
     expect(result.current.currentPlayer).toEqual(PlayerMark.O);
     expect(result.current.winningResult).toBe(null);
   });

@@ -3,8 +3,8 @@ import { render, screen } from "@testing-library/react";
 
 import GridBoard from "./GridBoard";
 import { GameBoard, PlayerMark, WinningLine } from "../types/types";
+import { mockEmptyGrid, mockWinningGrid } from "../constants/testing_mocks";
 
-const mockGrid: GameBoard = Array(9).fill(null);
 const mockMove = vi.fn();
 
 const createGridBoard = ({
@@ -12,7 +12,7 @@ const createGridBoard = ({
   mode = "interactive",
   winningLine = undefined,
   currentPlayer = PlayerMark.X,
-  grid = mockGrid,
+  grid = mockEmptyGrid,
   OnPlayerMove = mockMove,
 } : {
   grid?: GameBoard;
@@ -78,7 +78,7 @@ describe("GridBoard", () => {
     });
 
     test("clicking a filled square does nothing", () => {
-      const filledGrid = [...mockGrid]; 
+      const filledGrid = [...mockEmptyGrid]; 
       filledGrid[0] = PlayerMark.X;
 
       const mockGridBoard = createGridBoard({ grid: filledGrid });
@@ -91,13 +91,7 @@ describe("GridBoard", () => {
     });
 
     test("clicking a square after game has ended does nothing", () => {
-      const filledGrid: GameBoard = [
-        PlayerMark.X, PlayerMark.O, null,
-        PlayerMark.X, PlayerMark.O, null,
-        PlayerMark.X, null, null
-      ];
-
-      const mockGridBoard = createGridBoard({ grid: filledGrid, winningLine: [0,3,6] });
+      const mockGridBoard = createGridBoard({ grid: mockWinningGrid, winningLine: [0,3,6] });
       render(mockGridBoard);
   
       const squareButtons = screen.getAllByRole("button");

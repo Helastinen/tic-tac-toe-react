@@ -1,29 +1,26 @@
-import { describe, expect, test, vi } from "vitest";
+import { describe, expect, test } from "vitest";
 import { render, screen } from "@testing-library/react";
 
-import GridBoard from "./GridBoard";
-import { GameBoard, PlayerMark, WinningLine } from "../types/types";
 import MoveHistory from "./MoveHistory";
 import { UI_TEXT } from "../constants/uiText";
+import { mockEmptyMoveHistory, mockMoveHistoryAfterFirstTurn, mockMoveHistoryAfterFourTurns } from "../constants/testing_mocks";
 
 describe("MoveHistory", () => {
   test("renders component", () => {
-    const { container } = render(<MoveHistory moveHistory={[Array(9).fill(null)]} players={null}/>);
+    const { container } = render(<MoveHistory moveHistory={mockEmptyMoveHistory} players={null}/>);
 
     expect(container).toBeTruthy();
   });
 
   test("does not render if fewer then 3 entries", () => {
-    const historyArray = [[], [],];
-    render(<MoveHistory moveHistory={historyArray} players={null}/>);
+    render(<MoveHistory moveHistory={mockMoveHistoryAfterFirstTurn} players={null}/>);
 
     expect(screen.queryByText(UI_TEXT.HISTORY.TITLE)).not.toBeInTheDocument();
     expect(screen.queryByTestId("game-grid")).not.toBeInTheDocument();
   });
 
   test("renders grid if more then 2 entries", () => {
-    const historyArray= [[], [], [], [], []];
-    render(<MoveHistory moveHistory={historyArray} players={null}/>);
+    render(<MoveHistory moveHistory={mockMoveHistoryAfterFourTurns} players={null}/>);
 
     expect(screen.queryByText(UI_TEXT.HISTORY.TITLE)).toBeInTheDocument();
     expect(screen.getAllByTestId("game-grid")).toHaveLength(3);
