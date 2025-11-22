@@ -1,4 +1,4 @@
-import { Cell, GameBoard, GameStats, PlayerMark, WinningLines, WinningResult } from "../types/types";
+import { Cell, GameBoard, TotalStats, PlayerMark, WinningLines, WinningResult } from "../types/types";
 import { isTieGame } from "../utils/utils";
 
 /**
@@ -42,9 +42,9 @@ export const calculateWinningResult = (grid: GameBoard) => {
  * @param winningValue - The player mark that won the game ('X' or 'O'), or undefined if no winner.
  * @param grid - The final state of the game board.
  * @param gameAborted - Whether the game was aborted before completion.
- * @returns A new GameStats object with updated values for wins, ties, aborted games, and total games played.
+ * @returns A new TotalStats object with updated values for wins, ties, aborted games, and total games played.
  */
-export const calculateStats = (gameStats: GameStats, winningValue: Cell | undefined = undefined, grid: GameBoard = [], gameAborted: boolean): GameStats => {
+export const calculateTotalStats = (gameStats: TotalStats, winningValue: Cell | undefined = undefined, grid: GameBoard = [], gameAborted: boolean): TotalStats => {
   if (gameAborted) {
     console.log("aborted updated");
     return { ...gameStats, aborted: gameStats.aborted + 1 };

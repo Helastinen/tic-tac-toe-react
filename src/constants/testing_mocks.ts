@@ -1,4 +1,4 @@
-import { GameBoard, MoveHistoryType, PlayerMark } from "../types/types";
+import { GameBoard, TotalStats, MoveHistoryType, PlayerMark, GameHistory, GameStatus } from "../types/types";
 import { UI_TEXT } from "./uiText";
 
 export const mockEmptyGrid: GameBoard = Array(9).fill(null);
@@ -50,4 +50,20 @@ export const mockMoveHistoryAfterWin: MoveHistoryType = [
 export const mockPlayers = {
   playerOne: UI_TEXT.PLAYER_FORM.PLAYER_ONE_LABEL,
   playerTwo: UI_TEXT.PLAYER_FORM.PLAYER_TWO_LABEL
+};
+
+export const mockTotalStats: TotalStats = {
+  playerOneWins: 3,
+  playerTwoWins: 2,
+  ties: 1,
+  aborted: 4
+}
+
+export const mockGameHistoryStats: GameHistory = {
+    playerOne: mockPlayers.playerOne,
+    playerTwo: mockPlayers.playerTwo,
+    winnerName: mockPlayers.playerOne,
+    winningMark: PlayerMark.X,
+    winningMove: 5,
+    status: GameStatus.completed
 };

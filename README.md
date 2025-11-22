@@ -14,9 +14,7 @@ If you are developing a production application, we recommend using TypeScript wi
 
 ## Todo list
 ### json server
-- add single game stats
--- who one
--- what turn
+-- move to separate method, out of handleEndGame 
 
 ### moveHistory
 - add:
@@ -28,4 +26,4 @@ If you are developing a production application, we recommend using TypeScript wi
 -- create backend with Node.js
 
 ### Unit tests
-- add basic tests
+- add basic tests -> ongoing

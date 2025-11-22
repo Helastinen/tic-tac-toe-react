@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "start:api": "npx json-server --watch src/gameStats.json --port 3001",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:cov": "vitest run --coverage"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

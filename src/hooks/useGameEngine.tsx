@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import { calculateStats, calculateWinningResult } from "../logic/GameLogic";
+import { calculateTotalStats, calculateWinningResult } from "../logic/GameLogic";
 import { isTieGame, togglePlayer } from "../utils/utils";
 import { CONFIG } from "../constants/config";
 import { getSafeStats } from "../utils/statsHelper";
@@ -9,11 +9,12 @@ import { getSafeStats } from "../utils/statsHelper";
 import { 
   Cell,
   GameBoard,
-  GameStats,
+  TotalStats,
   MoveHistoryType,
   PlayerMark,
   Players,
-  WinningResult
+  WinningResult,
+  GameStatus
 } from "../types/types";
 import { UI_TEXT } from "../constants/uiText";
 
@@ -28,18 +29,18 @@ export const useGameEngine = () => {
   const [winningResult, setWinningResult] = useState<WinningResult>(null);
   const [gameStarted, setGameStarted] = useState(false);
   const [gameAborted, setGameAborted] = useState(false);
-  const [gameStats, setGameStats] = useState<GameStats | null>(null);
+  const [gameStats, setGameStats] = useState<TotalStats | null>(null);
 
   const safeStats = getSafeStats(gameStats);
 
   useEffect(() => {
     const getStats = async () => {
       try {
-        const res = await axios.get(`${CONFIG.API_BASE_URL}/stats`);
-        setGameStats(res.data);
+        const res = await axios.get(`${CONFIG.API_BASE_URL}/totalStats`);
+        setGameStats(res?.data ?? []);
       }
       catch (error) {
-        console.error("Failed to fetch stats: ", error);
+        console.error("Failed to fetch total stats: ", error);
       };
     } 
     getStats();
@@ -85,15 +86,41 @@ export const useGameEngine = () => {
     aborted: boolean = false,
   ) => {
     console.log("<Game> -> handleEndGame() triggered!");
-    const updatedStats = (calculateStats(safeStats, winValue, currentMove, aborted));
-    setGameStats(updatedStats);
+    const updatedTotalStats = (calculateTotalStats(safeStats, winValue, currentMove, aborted));
+
+    const winningMove = currentMove?.filter(square => square != null).length;
+    const status = aborted ? GameStatus.aborted : winValue ? GameStatus.completed : GameStatus.pending;
+    const winnerName = 
+      winValue === PlayerMark.X
+        ? players?.playerOne
+        : winValue === PlayerMark.O
+        ? players?.playerTwo
+        : undefined;
+
+    const gameResult = {
+      "playerOne": players?.playerOne,
+      "playerTwo": players?.playerTwo,
+      winnerName,
+      "winningMark": winValue,
+      "winningMove": winningMove,
+      "status": status,
+    }
+
+    setGameStats(updatedTotalStats);
     setGameStarted(false);
 
     try {
-      await axios.put(`${CONFIG.API_BASE_URL}/stats`, updatedStats);
-      console.log("Stats updated to server: ", updatedStats);
+      await axios.put(`${CONFIG.API_BASE_URL}/totalStats`, updatedTotalStats);
+      console.log("totalStats updated to server: ", updatedTotalStats);
     } catch (error) {
-      console.error("Failed to persist stats: ", error);
+      console.error("Failed to persist totalStats: ", error);
+    }
+
+    try {
+      await axios.post(`${CONFIG.API_BASE_URL}/gameHistory`, gameResult);
+      console.log("gameHistory updated to server: ", gameResult);
+    } catch (error) {
+      console.error("Failed to persist gameHistory: ", error);
     }
   };
 

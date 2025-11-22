@@ -2,6 +2,11 @@ export enum PlayerMark {
   X = "X",
   O = "O"
 };
+export enum GameStatus {
+  aborted = "aborted",
+  completed = "completed",
+  pending = "pending"
+};
 
 export type Nullable<T> = T | null;
 export type Optional<T> = T | undefined;
@@ -20,11 +25,21 @@ export type Players = null | {
   playerOne: string;
   playerTwo: string;
 };
-export type GameStats = {
+
+export type TotalStats = {
   playerOneWins: number;
   playerTwoWins: number;
   ties: number;
   aborted: number;
+};
+
+export type GameHistory = {
+    playerOne: string | undefined;
+    playerTwo: string | undefined;
+    status: GameStatus;
+    winnerName?: string;
+    winningMark?: Cell
+    winningMove?: number;
 };
 
 export interface StatusProps {
@@ -76,11 +91,11 @@ export interface PlayerFormProps {
   setPlayers: React.Dispatch<React.SetStateAction<Players>>;
   onStartGame: (players: Players) => void;
   gameStarted: boolean;
-  gameStats: GameStats | null;
+  gameStats: TotalStats | null;
 };
 
 export interface GameStatsDialogProps {
   open: boolean;
   onClose: () => void;
-  gameStats: GameStats | null;
+  gameStats: TotalStats | null;
 };
