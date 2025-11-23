@@ -18,12 +18,12 @@ export const getSafeStats = (gameStats: GameStats | null): GameStats => {
 };
 
 export const calculateAverageRoundWin = (gameHistory: GameHistoryStats[]) => {
-  const completedGamesWithWinningMove = gameHistory.filter(game => 
-    game.status === GameStatus.completed && game.winningMove
+  const completedGamesWithWinningMove = gameHistory.filter(
+    game => game.status === GameStatus.completed && game.winningMove
   );
   const averageRoundWin = completedGamesWithWinningMove.reduce((sum, game) => 
-    sum + (game.winningMove ?? 0), 0) 
-    / completedGamesWithWinningMove.length;
+    sum + (game.winningMove ?? 0), 0) /
+    completedGamesWithWinningMove.length;
   console.log("AverageRoundWin: ", averageRoundWin);
 
   // round up to nearest two decimals

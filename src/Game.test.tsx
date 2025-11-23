@@ -10,9 +10,15 @@ vi.mock("axios");
 
 describe("Game", () => {
   beforeEach(() => {
-    (axios.get as ReturnType<typeof vi.fn>).mockResolvedValue({
-      gameHistory: mockGameHistoryStats,
-      totalStats: mockTotalStats,
+    // need to mock each endpoint separately, since gamehistory is array and totalStats is object
+    (axios.get as ReturnType<typeof vi.fn>).mockImplementation((url: string) => {
+      if (url.includes('/gameHistory')) {
+        return Promise.resolve({ data: mockGameHistoryStats });
+      }
+      if (url.includes('/totalStats')) {
+        return Promise.resolve({ data: mockTotalStats });
+      }
+      return Promise.resolve({ data: {} });
     });
   });
 
