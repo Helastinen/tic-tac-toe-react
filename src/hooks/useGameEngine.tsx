@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 import { calculateTotalStats, calculateWinningResult } from "../logic/GameLogic";
 import { isTieGame, togglePlayer } from "../utils/utils";
-import { CONFIG } from "../constants/config";
 import { getSafeStats } from "../utils/statsHelper";
 
 import { 
@@ -15,10 +13,9 @@ import {
   WinningResult,
   GameStatus,
   GameStats,
-  GameHistoryStats,
-  TotalStats
 } from "../types/types";
 import { UI_TEXT } from "../constants/uiText";
+import { getGameStats, updateGameHistoryStats, updateTotalStats } from "../services/statsService";
 
 export const useGameEngine = () => {
   const [moveHistory, setMoveHistory] = useState<MoveHistoryType>([Array(9).fill(null)]);
@@ -35,27 +32,18 @@ export const useGameEngine = () => {
 
   const safeStats = getSafeStats(gameStats);
 
-
   useEffect(() => {
-    const getGameStats = async () => {
+    // useEffect needs to be syncronous
+    const fetchStats = async () => {
       try {
-        const [gameHistoryRes, totalStatsRes] = await Promise.all([
-          axios.get<GameHistoryStats[]>(`${CONFIG.API_BASE_URL}/gameHistory`),
-          axios.get<TotalStats>(`${CONFIG.API_BASE_URL}/totalStats`),
-        ]);
-        
-        const stats: GameStats = {
-          gameHistory: gameHistoryRes.data,
-          totalStats: totalStatsRes.data
-        };
-
-        setGameStats(stats);
+        const gameStats = await getGameStats();
+        setGameStats(gameStats);
       } catch (error) {
         console.error("Failed to fetch total stats: ", error);
       }
     };
 
-    getGameStats();
+    fetchStats();
   }, []);
 
   const currentMove: GameBoard = moveHistory[moveHistory.length - 1];
@@ -125,14 +113,14 @@ export const useGameEngine = () => {
     setGameStarted(false);
 
     try {
-      await axios.put(`${CONFIG.API_BASE_URL}/totalStats`, updatedTotalStats);
+      await updateTotalStats(updatedTotalStats);
       console.log("totalStats updated to server: ", updatedTotalStats);
     } catch (error) {
       console.error("Failed to persist totalStats: ", error);
     }
 
     try {
-      await axios.post(`${CONFIG.API_BASE_URL}/gameHistory`, gameResult);
+      await updateGameHistoryStats(gameResult);
       console.log("gameHistory updated to server: ", gameResult);
     } catch (error) {
       console.error("Failed to persist gameHistory: ", error);

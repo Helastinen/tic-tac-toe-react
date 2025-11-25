@@ -4,95 +4,52 @@
       "id": "1",
       "playerOne": "Alice",
       "playerTwo": "Bob",
-      "winnerName": "Alice",
+      "winnerName": "Bob",
       "winningMark": "O",
       "winningMove": 5,
       "status": "completed"
     },
     {
       "id": "2",
-      "playerOne": "Bob",
-      "playerTwo": "Cathy",
-      "winner": null,
-      "winningMark": null,
-      "winningTurn": null,
+      "playerOne": "Alice",
+      "playerTwo": "Bob",
+      "status": "completed"
+    },
+    {
+      "id": "3",
+      "playerOne": "Alice",
+      "playerTwo": "Bob",
+      "status": "completed"
+    },
+    {
+      "id": "4",
+      "playerOne": "Alice",
+      "playerTwo": "Bob",
       "status": "aborted"
     },
     {
-      "id": "7f94",
-      "playerOne": "Player One (X)",
-      "playerTwo": "Player Two (O)",
-      "winnerName": "Player One (X)",
-      "winningMark": "X",
-      "winningMove": 5,
-      "status": "completed"
+      "id": "5",
+      "playerOne": "Alice",
+      "playerTwo": "Bob",
+      "status": "aborted"
     },
     {
-      "id": "23e9",
-      "playerOne": "dsfdv",
-      "playerTwo": "brtnb4545",
-      "winnerName": "brtnb4545",
-      "winningMark": "O",
-      "winningMove": 8,
-      "status": "completed"
+      "id": "6",
+      "playerOne": "Alice",
+      "playerTwo": "Bob",
+      "status": "aborted"
     },
     {
-      "id": "0647",
-      "playerOne": "dsvsd",
-      "playerTwo": "fvfvfv",
-      "winnerName": "fvfvfv",
-      "winningMark": "O",
-      "winningMove": 8,
-      "status": "completed"
-    },
-    {
-      "id": "2a34",
-      "playerOne": "Player One (X)",
-      "playerTwo": "Player Two (O)",
-      "winnerName": "Player One (X)",
-      "winningMark": "X",
-      "winningMove": 5,
-      "status": "completed"
-    },
-    {
-      "id": "e592",
-      "playerOne": "Player One (X)",
-      "playerTwo": "Player Two (O)",
-      "winningMove": 9,
-      "status": "pending"
-    },
-    {
-      "id": "8adc",
-      "playerOne": "Player One (X)",
-      "playerTwo": "Player Two (O)",
-      "winnerName": "Player Two (O)",
-      "winningMark": "O",
-      "winningMove": 8,
-      "status": "completed"
-    },
-    {
-      "id": "8dac",
-      "playerOne": "Player One (X)",
-      "playerTwo": "Player Two (O)",
-      "winnerName": "Player Two (O)",
-      "winningMark": "O",
-      "winningMove": 6,
-      "status": "completed"
-    },
-    {
-      "id": "137c",
-      "playerOne": "Player One (X)",
-      "playerTwo": "Player Two (O)",
-      "winnerName": "Player Two (O)",
-      "winningMark": "O",
-      "winningMove": 8,
-      "status": "completed"
+      "id": "7",
+      "playerOne": "Alice",
+      "playerTwo": "Bob",
+      "status": "aborted"
     }
   ],
   "totalStats": {
-    "playerOneWins": 9,
-    "playerTwoWins": 6,
+    "playerOneWins": 2,
+    "playerTwoWins": 1,
     "ties": 2,
-    "aborted": 13
+    "aborted": 5
   }
 }
