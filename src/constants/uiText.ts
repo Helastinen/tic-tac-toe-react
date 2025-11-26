@@ -15,14 +15,14 @@ export const UI_TEXT = {
   },
   STATS: {
     TITLE: "Game Statistics",
-    GAMES_PLAYED: "Games Played",
+    GAMES_PLAYED: "Total games played",
     PLAYER_ONE_WINS: "Player One wins",
     PLAYER_TWO_WINS: "Player Two wins",
     TIES: "Ties",
-    ABORTED: "Aborted",
+    ABORTED: "Aborted games",
     X_WINS: "Wins with X",
     O_WINS: "Wins with O",
-    AVERAGE_ROUND: "Average round game was won"
+    AVERAGE_ROUND: "Average round when a game was won"
   },
   STATUS: {
     TIE: "Tie game",

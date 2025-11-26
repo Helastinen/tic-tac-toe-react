@@ -19,7 +19,7 @@ body {
 
 ul {
   display: flex;
-  width: 60%;
+  width: 90%;
   flex-wrap: wrap;
   padding-inline-start: 20px;
 }

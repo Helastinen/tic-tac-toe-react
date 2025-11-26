@@ -38,18 +38,12 @@
       "playerOne": "Alice",
       "playerTwo": "Bob",
       "status": "aborted"
-    },
-    {
-      "id": "7",
-      "playerOne": "Alice",
-      "playerTwo": "Bob",
-      "status": "aborted"
     }
   ],
   "totalStats": {
-    "playerOneWins": 2,
-    "playerTwoWins": 1,
+    "playerOneWins": 1,
+    "playerTwoWins": 0,
     "ties": 2,
-    "aborted": 5
+    "aborted": 3
   }
 }
