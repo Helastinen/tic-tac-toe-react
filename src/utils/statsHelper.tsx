@@ -24,7 +24,7 @@ export const calculateAverageRoundWin = (gameHistory: GameHistoryStats[]) => {
   const averageRoundWin = completedGamesWithWinningMove.reduce((sum, game) => 
     sum + (game.winningMove ?? 0), 0) /
     completedGamesWithWinningMove.length;
-  console.log("AverageRoundWin: ", averageRoundWin);
+  //console.log("AverageRoundWin: ", averageRoundWin);
 
   // round up to nearest two decimals
   return roundToDecimals(averageRoundWin, 1);

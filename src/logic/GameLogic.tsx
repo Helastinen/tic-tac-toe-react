@@ -46,22 +46,22 @@ export const calculateWinningResult = (grid: GameBoard) => {
  */
 export const calculateTotalStats = (gameStats: TotalStats, winningValue: Cell | undefined = undefined, grid: GameBoard = [], gameAborted: boolean): TotalStats => {
   if (gameAborted) {
-    console.log("aborted updated");
+    //console.log("aborted updated");
     return { ...gameStats, aborted: gameStats.aborted + 1 };
   }
 
   if (isTieGame(winningValue, grid)) {
-    console.log("ties updated");
+    //console.log("ties updated");
     return { ...gameStats, ties: gameStats.ties + 1 };
   }
 
   if (winningValue === PlayerMark.X) {
-    console.log("winningValue X updated");
+    //console.log("winningValue X updated");
     return { ...gameStats, playerOneWins: gameStats.playerOneWins + 1 };
   }
 
   if (winningValue === PlayerMark.O) {
-    console.log("winningValue O updated");
+    //console.log("winningValue O updated");
     return { ...gameStats, playerTwoWins: gameStats.playerTwoWins + 1 };
   }
 

@@ -111,6 +111,26 @@ export interface PlayerFormProps {
   currentPlayer: PlayerMark;
 };
 
+export interface PlayerSetupProps {
+  players: Players;
+  errors: { [key: string]: boolean };
+  helperTexts: { [key: string]: string };
+  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+};
+
+export interface PlayerNamesProps {
+  currentPlayer: PlayerMark;
+  players: Players;
+};
+
+export interface PlayerControlsProps {
+  errors: { [key: string]: boolean };
+  players: Players;
+  gameStarted: boolean;
+  gameStats: GameStats | null;
+  onStartGame: (players: Players) => void;
+};
+
 export interface GameStatsDialogProps {
   open: boolean;
   onClose: () => void;

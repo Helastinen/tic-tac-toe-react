@@ -85,7 +85,7 @@ export const useGameEngine = () => {
     currentMove: GameBoard = [],
     aborted: boolean = false,
   ) => {
-    console.log("<Game> -> handleEndGame() triggered!");
+    // console.log("<Game> -> handleEndGame() triggered!");
     const updatedTotalStats = (calculateTotalStats(safeStats.totalStats, winValue, currentMove, aborted));
 
     const winningMove = currentMove?.filter(square => square != null).length;
