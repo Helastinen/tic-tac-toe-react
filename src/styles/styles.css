@@ -44,12 +44,7 @@ ul {
   margin: 0 auto;
 }
 
-.small-grid {
-  transform: scale(0.6);
-  margin-left: 1rem;
-  transform-origin: top left;
-  font-size: 1.5rem;
-}
+
 
 /* MoveHistory */
 .move-history {
@@ -63,6 +58,13 @@ ul {
 
 .move-history-gridboard {
   filter: grayscale(100%);
+}
+
+.move-history-small-grid {
+  transform: scale(0.6);
+  margin-left: 1rem;
+  transform-origin: top left;
+  font-size: 1.5rem;
 }
 
 /* Grid square */
@@ -103,4 +105,16 @@ ul {
 /* Status */
 .status {
   margin-bottom: 1.5rem;
+}
+
+/* Playerform */
+.player-form-player-name {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: baseline;
+  width: 50%;
+}
+
+.player-form-player-one {
+  padding-right: 1rem;
 }

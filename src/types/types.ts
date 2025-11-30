@@ -108,6 +108,7 @@ export interface PlayerFormProps {
   onStartGame: (players: Players) => void;
   gameStarted: boolean;
   gameStats: GameStats | null;
+  currentPlayer: PlayerMark;
 };
 
 export interface GameStatsDialogProps {

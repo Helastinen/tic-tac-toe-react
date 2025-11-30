@@ -50,6 +50,7 @@ const Game = () => {
         onStartGame={(players) => handleStartGame(players)}
         gameStarted={gameStarted}
         gameStats={gameStats}
+        currentPlayer={currentPlayer}
       ></PlayerForm>
       <Status
         winningValue={winningValue}
