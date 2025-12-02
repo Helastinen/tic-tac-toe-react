@@ -7,7 +7,7 @@ import PlayerSetup from "./PlayerSetup";
 import PlayerNames from "./PlayerNames";
 import PlayerControls from "./PlayerControls";
 
-const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted, gameStats, currentPlayer }: PlayerFormProps) => {
+const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted, gameStats, currentPlayer, fetchStats }: PlayerFormProps) => {
   const [errors, setErrors] = useState<({ [key: string]: boolean})>({
     playerOne: false,
     playerTwo: false,
@@ -69,6 +69,7 @@ const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted, gameStats, 
           gameStarted={gameStarted}
           gameStats={gameStats}
           onStartGame={onStartGame}
+          fetchStats={fetchStats}
         />
       </Grid>
     </>

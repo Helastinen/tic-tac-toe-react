@@ -7,11 +7,20 @@ import GameStatsDialog from "./GameStatsDialog";
 import { UI_TEXT } from "../constants/uiText";
 import { PlayerControlsProps } from "../types/types";
 
-const PlayerControls = ({ errors, players, gameStarted, gameStats, onStartGame }: PlayerControlsProps) => {
+const PlayerControls = ({ 
+  errors,
+  players,
+  gameStarted,
+  gameStats,
+  onStartGame,
+  fetchStats
+}: PlayerControlsProps) => {
   const [openStatsDialog, setOpenStatsDialog] = useState(false);
 
-  const handleStatsDialogOpen = () => setOpenStatsDialog(true);
-
+  const handleStatsDialogOpen = () => {
+    setOpenStatsDialog(true);
+    fetchStats();
+  };
   const handleStatsDialogClose = () => setOpenStatsDialog(false);
 
   return (

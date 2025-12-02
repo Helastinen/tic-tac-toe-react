@@ -109,6 +109,7 @@ export interface PlayerFormProps {
   gameStarted: boolean;
   gameStats: GameStats | null;
   currentPlayer: PlayerMark;
+  fetchStats: () => void;
 };
 
 export interface PlayerSetupProps {
@@ -129,6 +130,7 @@ export interface PlayerControlsProps {
   gameStarted: boolean;
   gameStats: GameStats | null;
   onStartGame: (players: Players) => void;
+  fetchStats: () => void;
 };
 
 export interface GameStatsDialogProps {

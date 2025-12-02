@@ -32,23 +32,19 @@ export const useGameEngine = () => {
 
   const safeStats = getSafeStats(gameStats);
 
-  useEffect(() => {
-    // useEffect needs to be syncronous
-    const fetchStats = async () => {
-      try {
-        const gameStats = await getGameStats();
-        setGameStats(gameStats);
-      } catch (error) {
-        console.error("Failed to fetch total stats: ", error);
-      }
-    };
-
-    fetchStats();
-  }, []);
-
   const currentMove: GameBoard = moveHistory[moveHistory.length - 1];
   const winningValue: Cell | undefined = winningResult?.cell;
   const winningLine = winningResult?.winningLine;
+
+  const fetchStats = async () => {
+    try {
+      const gameStats = await getGameStats();
+      setGameStats(gameStats);
+    } catch (error) {
+      console.error("Failed to fetch total stats: ", error);
+      alert(`Failed to fetch total stats: ${error}`);
+    }
+  };
 
   const handleStartGame = (players: Players) => {
     setWinningResult(null);
@@ -117,6 +113,7 @@ export const useGameEngine = () => {
       console.log("totalStats updated to server: ", updatedStats);
     } catch (error) {
       console.error("Failed to persist totalStats: ", error);
+      alert(`Failed to persist totalStats: ${error}`);
     }
 
     try {
@@ -124,6 +121,7 @@ export const useGameEngine = () => {
       console.log("gameHistory updated to server: ", updatedStats);
     } catch (error) {
       console.error("Failed to persist gameHistory: ", error);
+      alert(`Failed to persist gameHistory: ${error}`);
     }
   };
 
@@ -141,5 +139,6 @@ export const useGameEngine = () => {
     handleStartGame,
     handleEndGame,
     setPlayers,
+    fetchStats,
   }
 };

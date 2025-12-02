@@ -22,6 +22,7 @@ const Game = () => {
     handlePlayerMove,
     handleStartGame,
     setPlayers,
+    fetchStats,
   } = useGameEngine();
 
   console.log("----------NEW RENDER--------");;
@@ -51,6 +52,7 @@ const Game = () => {
         gameStarted={gameStarted}
         gameStats={gameStats}
         currentPlayer={currentPlayer}
+        fetchStats={fetchStats}
       ></PlayerForm>
       <Status
         winningValue={winningValue}
