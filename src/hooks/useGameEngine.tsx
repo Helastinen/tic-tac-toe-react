@@ -81,18 +81,14 @@ export const useGameEngine = () => {
     currentMove: GameBoard = [],
     aborted: boolean = false,
   ) => {
-    // console.log("<Game> -> handleEndGame() triggered!");
     const updatedTotalStats = (calculateTotalStats(safeStats.totalStats, winValue, currentMove, aborted));
-    const playedMoves = currentMove?.filter(square => square != null).length ?? 0;
-    const winningMove: number | undefined = aborted ? undefined : playedMoves;
-    const status = aborted ? GameStatus.aborted : winValue ? GameStatus.completed : GameStatus.pending;
-    const winnerName = 
-      winValue === PlayerMark.X
-        ? players?.playerOne
-        : winValue === PlayerMark.O
-        ? players?.playerTwo
-        : undefined;
 
+    // calculate gameResult
+    const playedMoves = currentMove?.filter(square => square != null).length ?? 0;
+    const status = getGameStatus(aborted, winValue);
+    const winningMove = getWinningMove(aborted, status, playedMoves);
+    const winnerName = getWinnerName(players, winValue);7
+    
     const gameResult = {
       playerOne: players?.playerOne,
       playerTwo: players?.playerTwo,
@@ -118,6 +114,23 @@ export const useGameEngine = () => {
       console.error("Failed to persist stats: ", error);
       alert(`Failed to persist stats: ${error}`);
     }
+  };
+
+  const getGameStatus = (aborted: boolean, winValue?: Cell): GameStatus => {
+    if (aborted) return GameStatus.Aborted;
+    if (winValue) return GameStatus.CompletedWinner;
+    return GameStatus.CompletedTie;
+  };
+
+  const getWinningMove = (aborted: boolean, status: GameStatus, playedMoves: number): number | undefined => {
+    if (aborted || status === GameStatus.CompletedTie) return undefined;
+    return playedMoves;
+  };
+
+  const getWinnerName = (players: Players, winValue?: Cell): string | undefined => {
+    if (winValue === PlayerMark.X) return players?.playerOne;
+    if (winValue === PlayerMark.O) return players?.playerTwo;
+    return undefined;
   };
 
   return {

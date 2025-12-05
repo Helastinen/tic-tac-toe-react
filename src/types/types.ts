@@ -4,9 +4,9 @@ export enum PlayerMark {
   O = "O"
 };
 export enum GameStatus {
-  aborted = "aborted",
-  completed = "completed",
-  pending = "pending"
+  Aborted = "aborted",
+  CompletedWinner = "completed_with_winner",
+  CompletedTie = "completed_with_tie"
 };
 
 
