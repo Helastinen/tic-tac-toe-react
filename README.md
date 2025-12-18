@@ -13,11 +13,14 @@ If you are developing a production application, we recommend using TypeScript wi
 
 
 ## Todo list
-### UI
--- make entering player names user flow more clear
+### FE
+- add 1 player mode, computer opponent
+
 
 ### Backend
--- create backend with Node.js
+- add typescript
+- add test server. DONE.
+
 
 ### Unit tests
 - add basic tests -> ongoing

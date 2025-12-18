@@ -15,7 +15,7 @@ import {
   GameStats,
 } from "../types/types";
 import { UI_TEXT } from "../constants/uiText";
-import { getGameStats, updateGameHistoryStats, updateTotalStats } from "../services/statsService";
+import { getGameStats, updateGameHistoryStats } from "../services/statsService";
 
 export const useGameEngine = () => {
   const [moveHistory, setMoveHistory] = useState<MoveHistoryType>([Array(9).fill(null)]);
@@ -104,13 +104,12 @@ export const useGameEngine = () => {
     setGameStarted(false);
 
     try {
-      const persistedTotalStats = await updateTotalStats(updatedTotalStats);
       const persistedGameResultStats = await updateGameHistoryStats(gameResult);
-      //console.log("totalStats updated to server: ", persistedTotalStats);
       //console.log("gameHistory updated to server: ", persistedGameResultStats);
 
       setGameStats(prev => ({
         gameHistory: [...(prev?.gameHistory ?? []), gameResult],
+        // Todo should totalstats be requested from BE and then added to state?
         totalStats: updatedTotalStats,
       }));
       setError(null);

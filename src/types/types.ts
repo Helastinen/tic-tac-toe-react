@@ -53,7 +53,7 @@ export type GameStats = {
 
 export type StatsListItem = {
   name: string;
-  value: number;
+  value: number | string;
   percentage?: number;
 }
 

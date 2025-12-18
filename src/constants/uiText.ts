@@ -25,7 +25,8 @@ export const UI_TEXT = {
     ABORTED: "Aborted games",
     X_WINS: "Wins with X",
     O_WINS: "Wins with O",
-    AVERAGE_ROUND: "Average round when a game was won"
+    AVERAGE_ROUND: "Average round when a game was won",
+    NOT_APPLICABLE: "N/A"
   },
   STATUS: {
     TIE: "Tie game",

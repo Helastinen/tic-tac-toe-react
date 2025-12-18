@@ -19,6 +19,7 @@ const GameStatsDialog = ({open, onClose, gameStats }: GameStatsDialogProps) => {
   const { gameHistory, totalStats } = getSafeStats(gameStats);
   const { playerOneWins, playerTwoWins, ties, aborted } = totalStats;
   const gamesPlayed = playerOneWins + playerTwoWins + ties + aborted;
+  console.log("FE -> GameStatsDialog -> { gameHistory, totalStats }: ", { gameHistory, totalStats });
 
   const stats: StatsListItem[] = [
     { name: UI_TEXT.STATS.GAMES_PLAYED, value: gamesPlayed },
@@ -36,7 +37,7 @@ const GameStatsDialog = ({open, onClose, gameStats }: GameStatsDialogProps) => {
       value: getPlayerMarkWins(gameHistory, PlayerMark.O),
       percentage: getStatPercentage(getPlayerMarkWins(gameHistory, PlayerMark.O), gamesPlayed)
     },
-    { name: UI_TEXT.STATS.AVERAGE_ROUND, value: calculateAverageRoundWin(gameHistory)},
+    { name: UI_TEXT.STATS.AVERAGE_ROUND, value: calculateAverageRoundWin(gameHistory) ?? UI_TEXT.STATS.NOT_APPLICABLE },
   ];
 
   return (

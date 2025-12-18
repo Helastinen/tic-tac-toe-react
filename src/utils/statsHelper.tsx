@@ -17,10 +17,15 @@ export const getSafeStats = (gameStats: GameStats | null): GameStats => {
   }
 };
 
-export const calculateAverageRoundWin = (gameHistory: GameHistoryStats[]) => {
+export const calculateAverageRoundWin = (gameHistory: GameHistoryStats[]): number | null => {
+  if (!gameHistory?.length) return null;
+
   const completedGamesWithWinningMove = gameHistory.filter(
     game => game.status === GameStatus.CompletedWinner && game.winningMove
   );
+
+  if (completedGamesWithWinningMove.length === 0) return null;
+  
   const averageRoundWin = completedGamesWithWinningMove.reduce((sum, game) => 
     sum + (game.winningMove ?? 0), 0) /
     completedGamesWithWinningMove.length;
