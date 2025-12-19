@@ -20,7 +20,6 @@ const Square = ({ onSquareClick, index, value, winningLine, disabled }: SquarePr
       default:
         return "square";
     }
-
   }
 
   const getAriaLabel = (index: number, value: Nullable<PlayerMark>, winningLine: WinningLine | undefined) => {

@@ -1,5 +1,5 @@
 :root { 
-  --board-width: 240px;
+  --board-width: 230px;
 }
 
 * {
@@ -114,7 +114,7 @@ ul {
 
 /* Status */
 .status {
-  margin-bottom: 1.5rem;
+  margin: 0 0 1.5rem;
 }
 
 /* Playerform */
