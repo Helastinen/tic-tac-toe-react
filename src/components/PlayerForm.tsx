@@ -51,7 +51,7 @@ const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted, gameStats, 
     <>
       <Grid 
         container
-        spacing={1}   
+        spacing={0}   
         sx={{ justifyContent: "space-evenly", alignItems: "center" }}
       >
         {!gameStarted && 
