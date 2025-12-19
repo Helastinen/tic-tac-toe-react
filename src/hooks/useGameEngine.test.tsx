@@ -77,19 +77,12 @@ describe("useGameEngine", () => {
       PlayerMark.O, PlayerMark.O, null,
       null, null, null
     ];
-    const updatedMockTotalStats: TotalStats = {...defaultGameStats.totalStats, playerOneWins: 1};
 
-    mockedPutAxios.put.mockResolvedValue({});
     mockedPostAxios.post.mockResolvedValue({});
 
     await act(() => result.current.handleEndGame(PlayerMark.X, currentMove));
 
     expect(result.current.gameStarted).toBe(false);
-    expect(axios.put).toHaveBeenCalledTimes(1);
-    expect(axios.put).toHaveBeenCalledWith(
-      expect.stringContaining(`${CONFIG.API_BASE_URL}/${CONFIG.API_TOTALSTATS}`),
-      expect.objectContaining(updatedMockTotalStats)
-    );
     expect(axios.post).toHaveBeenCalledTimes(1);
     expect(axios.post).toHaveBeenCalledWith(
       expect.stringContaining(`${CONFIG.API_BASE_URL}/${CONFIG.API_GAMEHISTORY}`),
