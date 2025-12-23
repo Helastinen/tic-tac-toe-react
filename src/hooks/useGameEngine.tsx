@@ -27,7 +27,7 @@ export const useGameEngine = () => {
 
   const [winningResult, setWinningResult] = useState<WinningResult>(null);
   const [gameStarted, setGameStarted] = useState(false);
-  const [gameAborted, setGameAborted] = useState(false);
+  const [, setGameAborted] = useState(false);
   const [gameStats, setGameStats] = useState<GameStats | null>(null);
   const [error, setError] = useState<string | null>(null);
   
@@ -38,14 +38,14 @@ export const useGameEngine = () => {
   const winningValue: Cell | undefined = winningResult?.cell;
   const winningLine = winningResult?.winningLine;
 
-  const fetchStats = async () => {
+  const fetchStats = async (): Promise<void> => {
     try {
       const gameStats = await getGameStats();
       setGameStats(gameStats);
       setError(null);
     } catch (error) {
       console.error("Failed to fetch stats: ", error);
-      setError(`Failed to fetch stats: ${error}`);
+      setError(`Failed to fetch stats: ${String(error)}`);
     }
   };
 
@@ -59,7 +59,7 @@ export const useGameEngine = () => {
     // game has been aborted, if user starts new game during existing game
     if (gameStarted) {
       setGameAborted(true);
-      handleEndGame(undefined, [], true);
+      void handleEndGame(undefined, [], true);
     } 
   };
 
@@ -75,14 +75,14 @@ export const useGameEngine = () => {
     //console.log("<Game> -> handlePlayerMove(): winValue", winValue);
 
     if (result || tieGame) {
-      handleEndGame(winValue, currentMove);
+      void handleEndGame(winValue, currentMove);
     }
   };
 
   const handleEndGame = async (
     winValue: Cell | undefined = undefined,
     currentMove: GameBoard = [],
-    aborted: boolean = false,
+    aborted = false,
   ) => {
     const updatedTotalStats = (calculateTotalStats(safeStats.totalStats, winValue, currentMove, aborted));
 
@@ -90,7 +90,7 @@ export const useGameEngine = () => {
     const playedMoves = currentMove?.filter(square => square != null).length ?? 0;
     const status = getGameStatus(aborted, winValue);
     const winningMove = getWinningMove(aborted, status, playedMoves);
-    const winnerName = getWinnerName(players, winValue);7
+    const winnerName = getWinnerName(players, winValue);
     
     const gameResult = {
       playerOne: players?.playerOne,
@@ -104,7 +104,7 @@ export const useGameEngine = () => {
     setGameStarted(false);
 
     try {
-      const persistedGameResultStats = await updateGameHistoryStats(gameResult);
+      /* const persistedGameResultStats = */await updateGameHistoryStats(gameResult);
       //console.log("gameHistory updated to server: ", persistedGameResultStats);
 
       setGameStats(prev => ({
@@ -115,7 +115,7 @@ export const useGameEngine = () => {
       setError(null);
     } catch (error) {
       console.error("Failed to persist stats: ", error);
-      setError(`Failed to persist stats: ${error}`);
+      setError(`Failed to persist stats: ${String(error)}`);
     }
   };
 

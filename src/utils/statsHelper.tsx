@@ -1,4 +1,4 @@
-import { GameHistoryStats, GameStats, GameStatus, PlayerMark } from "../types/types";
+import { GameHistoryStats, GameStats, GameStatus } from "../types/types";
 
 export const defaultGameStats: GameStats = {
   gameHistory: [],

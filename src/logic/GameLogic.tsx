@@ -19,13 +19,13 @@ export const calculateWinningResult = (grid: GameBoard) => {
     [6, 7, 8]
   ];
 
- for (let i = 0; i < winningLines.length; i++) {
-    const [a, b, c] = winningLines[i];
+  for (const line of winningLines) {
+    const [a, b, c] = line;
     
     if (grid[a] && grid[a] === grid[b] && grid[a] === grid[c]) {
       const winningResult: WinningResult = {
         cell: grid[a], 
-        winningLine: winningLines[i]
+        winningLine: line
       }
       //console.log("calculateWinningResult() -> winningResult: ", winningResult)
       return winningResult;

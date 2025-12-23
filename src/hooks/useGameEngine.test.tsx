@@ -1,21 +1,20 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, Mocked, test } from "vitest";
 import { act, renderHook, waitFor } from "@testing-library/react";
 
 import axios from "axios";
 
 import { useGameEngine } from "./useGameEngine";
-import { GameBoard, TotalStats, PlayerMark, Players } from "../types/types";
-import { defaultGameStats } from "../utils/statsHelper";
+import { GameBoard, PlayerMark, Players } from "../types/types";
 import { mockEmptyGrid, mockEmptyMoveHistory, mockTotalStats, mockPlayers, mockGameHistoryStats } from "../constants/testingMocks";
 import { CONFIG } from "../constants/config";
 
 vi.mock("axios");
-const mockedPutAxios = axios as unknown as { put: ReturnType<typeof vi.fn>};
-const mockedPostAxios = axios as unknown as { post: ReturnType<typeof vi.fn>};
+//const mockedPostAxios = axios as unknown as { post: ReturnType<typeof vi.fn>};
+const mockedAxios = axios as Mocked<typeof axios>;
 
 describe("useGameEngine", () => {
   beforeEach(() => {
-    (axios.get as ReturnType<typeof vi.fn>).mockResolvedValue({ data: mockTotalStats });
+    mockedAxios.get.mockResolvedValue({ data: mockTotalStats });
   });
 
   test("initial state is correct", async () => {    
@@ -78,13 +77,15 @@ describe("useGameEngine", () => {
       null, null, null
     ];
 
-    mockedPostAxios.post.mockResolvedValue({});
+    mockedAxios.post.mockResolvedValue({});
 
     await act(() => result.current.handleEndGame(PlayerMark.X, currentMove));
 
     expect(result.current.gameStarted).toBe(false);
-    expect(axios.post).toHaveBeenCalledTimes(1);
-    expect(axios.post).toHaveBeenCalledWith(
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    expect(mockedAxios.post).toHaveBeenCalledTimes(1);
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    expect(mockedAxios.post).toHaveBeenCalledWith(
       expect.stringContaining(`${CONFIG.API_BASE_URL}/${CONFIG.API_GAMEHISTORY}`),
       expect.objectContaining(mockGameHistoryStats[0])
     );

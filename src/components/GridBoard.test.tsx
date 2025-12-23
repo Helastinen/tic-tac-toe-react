@@ -22,7 +22,7 @@ const createGridBoard = ({
   winningLine?: WinningLine | undefined;
   mode?: "interactive" | "moveHistory";
 } = {} ) => {
-  if (mode = "interactive") {
+  if (mode === "interactive") {
     return (
       <GridBoard  
         disabled={disabled}

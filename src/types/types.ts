@@ -9,7 +9,6 @@ export enum GameStatus {
   CompletedTie = "completed_with_tie"
 };
 
-
 export type Nullable<T> = T | null;
 export type Optional<T> = T | undefined;
 
@@ -30,14 +29,14 @@ export type Players = null | {
 };
 
 // Stats
-export type TotalStats = {
+export interface TotalStats {
   playerOneWins: number;
   playerTwoWins: number;
   ties: number;
   aborted: number;
 };
 
-export type GameHistoryStats = {
+export interface GameHistoryStats {
   playerOne: string | undefined;
   playerTwo: string | undefined;
   status: GameStatus;
@@ -46,12 +45,12 @@ export type GameHistoryStats = {
   winningMove?: number;
 };
 
-export type GameStats = {
+export interface GameStats {
   gameHistory: GameHistoryStats[];
   totalStats: TotalStats;
 }
 
-export type StatsListItem = {
+export interface StatsListItem {
   name: string;
   value: number | string;
   percentage?: number;
@@ -109,13 +108,13 @@ export interface PlayerFormProps {
   gameStarted: boolean;
   gameStats: GameStats | null;
   currentPlayer: PlayerMark;
-  fetchStats: () => void;
+  fetchStats: () => Promise<void>;
 };
 
 export interface PlayerSetupProps {
   players: Players;
-  errors: { [key: string]: boolean };
-  helperTexts: { [key: string]: string };
+  errors: Record<string, boolean>;
+  helperTexts: Record<string, string>;
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 };
 
@@ -125,12 +124,12 @@ export interface PlayerNamesProps {
 };
 
 export interface PlayerControlsProps {
-  errors: { [key: string]: boolean };
+  errors: Record<string, boolean>;
   players: Players;
   gameStarted: boolean;
   gameStats: GameStats | null;
   onStartGame: (players: Players) => void;
-  fetchStats: () => void;
+  fetchStats: () => Promise<void>;
 };
 
 export interface GameStatsDialogProps {

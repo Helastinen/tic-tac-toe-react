@@ -19,7 +19,8 @@ const PlayerControls = ({
 
   const handleStatsDialogOpen = () => {
     setOpenStatsDialog(true);
-    fetchStats();
+    // open dialog even if fetchStats hasn't returned
+    void fetchStats();
   };
   const handleStatsDialogClose = () => setOpenStatsDialog(false);
 

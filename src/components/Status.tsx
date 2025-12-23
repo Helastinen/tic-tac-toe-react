@@ -1,6 +1,6 @@
 import { UI_TEXT } from '../constants/uiText';
 import { Cell, StatusProps, PlayerMark } from '../types/types';
-import { isTieGame, togglePlayer } from '../utils/utils';
+import { isTieGame } from '../utils/utils';
 
 const Status = ({ winningValue, currentPlayer, players, grid, gameStarted, moveHistory }: StatusProps) => {
   const getCurrentPlayerName = (): string | undefined => {
@@ -32,7 +32,7 @@ const Status = ({ winningValue, currentPlayer, players, grid, gameStarted, moveH
 
     return (
       <span data-testid="turn-status">
-        <strong>Turn {moveHistory.length}:</strong> You're up <strong>{getCurrentPlayerName()}</strong> ({currentPlayer}).
+        <strong>Turn {moveHistory.length}:</strong> You&apos;re up <strong>{getCurrentPlayerName()}</strong> ({currentPlayer}).
       </span>
     )
   };

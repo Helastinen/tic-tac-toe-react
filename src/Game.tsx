@@ -14,7 +14,6 @@ const Game = () => {
     moveHistory,
     currentPlayer,
     players,
-    winningResult,
     winningValue,
     winningLine,
     gameStarted,

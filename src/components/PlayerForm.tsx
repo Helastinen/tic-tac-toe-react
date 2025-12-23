@@ -7,12 +7,12 @@ import PlayerSetup from "./PlayerSetup";
 import PlayerNames from "./PlayerNames";
 import PlayerControls from "./PlayerControls";
 
-const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted, gameStats, currentPlayer, fetchStats }: PlayerFormProps) => {
-  const [errors, setErrors] = useState<({ [key: string]: boolean})>({
+const PlayerForm = ({ players: _players, setPlayers, onStartGame, gameStarted, gameStats, currentPlayer, fetchStats }: PlayerFormProps) => {
+  const [errors, setErrors] = useState<Record<string, boolean>>({
     playerOne: false,
     playerTwo: false,
   });
-  const [helperTexts, setHelperTexts] = useState<({ [key: string]: string })>({
+  const [helperTexts, setHelperTexts] = useState<Record<string, string>>({
     playerOne: "",
     playerTwo: "",
   });
@@ -58,14 +58,14 @@ const PlayerForm = ({ players, setPlayers, onStartGame, gameStarted, gameStats, 
           <PlayerSetup
             errors={errors}
             helperTexts={helperTexts}
-            players={players}
+            players={_players}
             handleChange={handleChange}
           />
         }
-        {gameStarted && <PlayerNames currentPlayer= {currentPlayer} players={players} />}
+        {gameStarted && <PlayerNames currentPlayer= {currentPlayer} players={_players} />}
         <PlayerControls 
           errors={errors}
-          players={players}
+          players={_players}
           gameStarted={gameStarted}
           gameStats={gameStats}
           onStartGame={onStartGame}

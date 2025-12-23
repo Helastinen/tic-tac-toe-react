@@ -1,7 +1,7 @@
 import { GameBoard, TotalStats, MoveHistoryType, PlayerMark, GameHistoryStats, GameStatus } from "../types/types";
 import { UI_TEXT } from "./uiText";
 
-export const mockEmptyGrid: GameBoard = Array(9).fill(null);
+export const mockEmptyGrid: GameBoard = Array(9).fill(null) as GameBoard;
 
 export const mockWinningGrid: GameBoard = [
   PlayerMark.X, PlayerMark.O, null,

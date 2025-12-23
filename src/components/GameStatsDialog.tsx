@@ -12,7 +12,7 @@ import GamesIcon from '@mui/icons-material/Games';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import { calculateAverageRoundWin, getSafeStats, getStatPercentage } from '../utils/statsHelper';
-import { GameStatsDialogProps, PlayerMark, StatsListItem } from '../types/types';
+import { GameStatsDialogProps, StatsListItem } from '../types/types';
 import { UI_TEXT } from '../constants/uiText';
 
 const GameStatsDialog = ({open, onClose, gameStats }: GameStatsDialogProps) => {
