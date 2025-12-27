@@ -8,7 +8,7 @@ export const UI_TEXT = {
     NEW: "New game",
     STATS: "Stats"
   },
-   HISTORY: {
+  HISTORY: {
     TITLE: "Move history"
   },
   PLAYER_FORM: {
@@ -29,4 +29,4 @@ export const UI_TEXT = {
   STATUS: {
     TIE: "Tie game",
   }
-}
+};

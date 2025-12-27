@@ -38,7 +38,7 @@ const Game = () => {
     <div className="game-background">
       <GameTitle />
       {error && <ErrorBanner error={error} clearError={clearError} />}
-      <PlayerForm 
+      <PlayerForm
         players={players}
         setPlayers={setPlayers}
         onStartGame={(players) => handleStartGame(players)}
@@ -56,7 +56,7 @@ const Game = () => {
         moveHistory={moveHistory}
       />
       <div className="board">
-       <GridBoard
+        <GridBoard
           disabled={!gameStarted}
           mode="interactive"
           winningLine={winningLine}

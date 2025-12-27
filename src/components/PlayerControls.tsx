@@ -1,13 +1,13 @@
 import { useState } from "react";
 
 import { Button, Grid } from "@mui/material";
-import BarChartIcon from '@mui/icons-material/BarChart';
+import BarChartIcon from "@mui/icons-material/BarChart";
 
 import GameStatsDialog from "./GameStatsDialog";
 import { UI_TEXT } from "../constants/uiText";
 import { PlayerControlsProps } from "../types/types";
 
-const PlayerControls = ({ 
+const PlayerControls = ({
   errors,
   players,
   gameStarted,
@@ -39,25 +39,25 @@ const PlayerControls = ({
       >
         {gameStarted ? UI_TEXT.GAME.NEW : UI_TEXT.GAME.START}
       </Button>
-      <Button 
+      <Button
         variant="outlined"
         startIcon={<BarChartIcon />}
         onClick={handleStatsDialogOpen}
-        sx={{ 
+        sx={{
           margin: "1rem 0.5rem 1.5rem",
           backgroundColor: "white"
         }}
       >
         {UI_TEXT.GAME.STATS}
       </Button>
-      <GameStatsDialog 
-        open={openStatsDialog}  
+      <GameStatsDialog
+        open={openStatsDialog}
         onClose={handleStatsDialogClose}
         gameStats={gameStats}
       >
       </GameStatsDialog>
     </Grid>
-  )
+  );
 };
 
 export default PlayerControls;

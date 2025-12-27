@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 
 import Status from "./Status";
 import { PlayerMark } from "../types/types";
-import { 
+import {
   mockEmptyGrid,
   mockEmptyMoveHistory,
   mockMoveHistoryAfterFiveTurns,
@@ -27,7 +27,7 @@ describe("Status", () => {
 
   test("renders component", () => {
     const { container } = render(
-      <Status 
+      <Status
         winningValue={undefined}
         currentPlayer={PlayerMark.X}
         players={null}
@@ -42,7 +42,7 @@ describe("Status", () => {
 
   test("shows winning player and win status when winningValue set", () => {
     render(
-      <Status 
+      <Status
         winningValue={PlayerMark.X}
         currentPlayer={PlayerMark.O}
         players={mockPlayers}
@@ -57,9 +57,9 @@ describe("Status", () => {
   });
 
   test("shows tie when tie Game", () => {
-    (isTieGame as jest.Mock).mockReturnValue(true);
+    vi.mocked(isTieGame).mockReturnValue(true);
     render(
-      <Status 
+      <Status
         winningValue={null}
         currentPlayer={PlayerMark.X}
         players={mockPlayers}
@@ -73,9 +73,9 @@ describe("Status", () => {
   });
 
   test("shows turn status including turn number and current player when game is ongoing", () => {
-    (isTieGame as jest.Mock).mockReturnValue(false);
+    vi.mocked(isTieGame).mockReturnValue(false);
     render(
-      <Status 
+      <Status
         winningValue={null}
         currentPlayer={PlayerMark.O}
         players={mockPlayers}

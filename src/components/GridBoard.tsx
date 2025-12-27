@@ -9,15 +9,15 @@ const GridBoard = (props: GridBoardProps) => {
 
   const { currentPlayer, OnPlayerMove, winningLine } = isInteractiveGridBoardProps(props)
     ? props
-    : { 
+    : {
       currentPlayer: undefined,
       OnPlayerMove: undefined,
       winningLine: undefined
-    }
+    };
 
   const className = !isInteractiveGridBoardProps(props)
-  ? "move-history-gridboard"
-  : "";
+    ? "move-history-gridboard"
+    : "";
 
   const handleClick = (i: number) => {
     // do nothing if square has already value or game has ended
@@ -26,14 +26,14 @@ const GridBoard = (props: GridBoardProps) => {
     const updatedGrid = [...grid];
     updatedGrid[i] = currentPlayer;
     OnPlayerMove?.(updatedGrid, currentPlayer);
-  }
+  };
 
-  return ( 
-    <Grid 
+  return (
+    <Grid
       container
       data-testid="game-grid"
       className={className}
-      sx={{ 
+      sx={{
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
         gap: 2,
@@ -41,16 +41,16 @@ const GridBoard = (props: GridBoardProps) => {
         maxWidth: 300,
         margin: "0 auto"
       }}
-    > 
+    >
       {grid.map((value, i) => (
-        <Square 
+        <Square
           key={i}
           disabled={disabled}
           onSquareClick={() => handleClick(i)}
           index={i}
           value={value}
           winningLine={winningLine}
-        /> 
+        />
       ))}
     </Grid>
   );

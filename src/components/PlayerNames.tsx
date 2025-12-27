@@ -1,6 +1,6 @@
 import { PlayerMark, PlayerNamesProps } from "../types/types";
 
-import StarIcon from '@mui/icons-material/Star';
+import StarIcon from "@mui/icons-material/Star";
 
 const PlayerNames = ({ currentPlayer, players }: PlayerNamesProps) => (
   <div className="player-form-player-name">

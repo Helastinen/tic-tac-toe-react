@@ -21,12 +21,12 @@ export const calculateWinningResult = (grid: GameBoard) => {
 
   for (const line of winningLines) {
     const [a, b, c] = line;
-    
+
     if (grid[a] && grid[a] === grid[b] && grid[a] === grid[c]) {
       const winningResult: WinningResult = {
-        cell: grid[a], 
+        cell: grid[a],
         winningLine: line
-      }
+      };
       //console.log("calculateWinningResult() -> winningResult: ", winningResult)
       return winningResult;
     }
@@ -65,5 +65,5 @@ export const calculateTotalStats = (gameStats: TotalStats, winningValue: Cell | 
     return { ...gameStats, playerTwoWins: gameStats.playerTwoWins + 1 };
   }
 
-  return {...gameStats};
+  return { ...gameStats };
 };

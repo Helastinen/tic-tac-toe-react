@@ -4,7 +4,7 @@ import { calculateTotalStats, calculateWinningResult } from "../logic/GameLogic"
 import { isTieGame, togglePlayer } from "../utils/utils";
 import { getSafeStats } from "../utils/statsHelper";
 
-import { 
+import {
   Cell,
   GameBoard,
   MoveHistoryType,
@@ -30,7 +30,7 @@ export const useGameEngine = () => {
   const [, setGameAborted] = useState(false);
   const [gameStats, setGameStats] = useState<GameStats | null>(null);
   const [error, setError] = useState<string | null>(null);
-  
+
   const clearError = () => setError(null);
   const safeStats = getSafeStats(gameStats);
 
@@ -60,7 +60,7 @@ export const useGameEngine = () => {
     if (gameStarted) {
       setGameAborted(true);
       void handleEndGame(undefined, [], true);
-    } 
+    }
   };
 
   const handlePlayerMove = (currentMove: GameBoard, currentPlayer: PlayerMark) => {
@@ -87,11 +87,11 @@ export const useGameEngine = () => {
     const updatedTotalStats = (calculateTotalStats(safeStats.totalStats, winValue, currentMove, aborted));
 
     // calculate gameResult
-    const playedMoves = currentMove?.filter(square => square != null).length ?? 0;
+    const playedMoves = currentMove?.filter(square => square !== null).length ?? 0;
     const status = getGameStatus(aborted, winValue);
     const winningMove = getWinningMove(aborted, status, playedMoves);
     const winnerName = getWinnerName(players, winValue);
-    
+
     const gameResult = {
       playerOne: players?.playerOne,
       playerTwo: players?.playerTwo,
@@ -99,7 +99,7 @@ export const useGameEngine = () => {
       winningMark: winValue,
       winningMove,
       status,
-    }
+    };
 
     setGameStarted(false);
 
@@ -153,5 +153,5 @@ export const useGameEngine = () => {
     handleEndGame,
     setPlayers,
     fetchStats,
-  }
+  };
 };

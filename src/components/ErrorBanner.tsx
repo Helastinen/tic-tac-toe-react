@@ -7,7 +7,7 @@ import { UI_TEXT } from "../constants/uiText";
 
 const ErrorBanner = ({ error, clearError }: ErrorBannerProps) => {
   if (!error) return null;
-  
+
   return (
     <Snackbar
       open={!!error}
@@ -19,7 +19,7 @@ const ErrorBanner = ({ error, clearError }: ErrorBannerProps) => {
         {error}
       </Alert>
     </Snackbar>
-  )
+  );
 };
 
 export default ErrorBanner;

@@ -37,13 +37,13 @@ export const mockMoveHistoryAfterWin: MoveHistoryType = [
   [PlayerMark.X, PlayerMark.O, ...mockEmptyGrid.slice(2)],
   [PlayerMark.X, PlayerMark.O, null, PlayerMark.X, ...mockEmptyGrid.slice(4)],
   [
-    PlayerMark.X, PlayerMark.O, null, 
+    PlayerMark.X, PlayerMark.O, null,
     PlayerMark.X, PlayerMark.O, null,
     null, null, null
   ],
   [
-    PlayerMark.X, PlayerMark.O, null, 
-    PlayerMark.X, PlayerMark.O, null, 
+    PlayerMark.X, PlayerMark.O, null,
+    PlayerMark.X, PlayerMark.O, null,
     PlayerMark.X, null, null
   ],
 ];
@@ -58,7 +58,7 @@ export const mockTotalStats: TotalStats = {
   playerTwoWins: 2,
   ties: 1,
   aborted: 4
-}
+};
 
 export const mockGameHistoryStats: GameHistoryStats[] = [
   {

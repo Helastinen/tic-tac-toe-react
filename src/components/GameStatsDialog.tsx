@@ -1,21 +1,21 @@
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
 
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
 
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import GamesIcon from '@mui/icons-material/Games';
-import CircularProgress from '@mui/material/CircularProgress';
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import GamesIcon from "@mui/icons-material/Games";
+import CircularProgress from "@mui/material/CircularProgress";
 
-import { calculateAverageRoundWin, getSafeStats, getStatPercentage } from '../utils/statsHelper';
-import { GameStatsDialogProps, StatsListItem } from '../types/types';
-import { UI_TEXT } from '../constants/uiText';
+import { calculateAverageRoundWin, getSafeStats, getStatPercentage } from "../utils/statsHelper";
+import { GameStatsDialogProps, StatsListItem } from "../types/types";
+import { UI_TEXT } from "../constants/uiText";
 
-const GameStatsDialog = ({open, onClose, gameStats }: GameStatsDialogProps) => {
+const GameStatsDialog = ({ open, onClose, gameStats }: GameStatsDialogProps) => {
   const { gameHistory, totalStats } = getSafeStats(gameStats);
   const { playerOneWins, playerTwoWins, ties, aborted } = totalStats;
   const gamesPlayed = playerOneWins + playerTwoWins + ties + aborted;
@@ -31,13 +31,13 @@ const GameStatsDialog = ({open, onClose, gameStats }: GameStatsDialogProps) => {
   ];
 
   return (
-    <Dialog 
+    <Dialog
       open={open}
       onClose={onClose}
       aria-modal="true"
       aria-labelledby="game-stats-title"
     >
-      <DialogTitle 
+      <DialogTitle
         id="game-stats-title"
         variant="h2"
         color="primary"
@@ -48,7 +48,7 @@ const GameStatsDialog = ({open, onClose, gameStats }: GameStatsDialogProps) => {
       <IconButton
         aria-label="close"
         onClick={onClose}
-        sx={{ 
+        sx={{
           position: "absolute",
           right: 8,
           top: 8,
@@ -56,31 +56,31 @@ const GameStatsDialog = ({open, onClose, gameStats }: GameStatsDialogProps) => {
       >
         <CloseIcon />
       </IconButton>
-        <DialogContent id="game-stats-description" sx={{ paddingTop: "0" }}>
-          {!gameStats 
-            ? <div className="loading-spinner">
-                <CircularProgress /> 
-              </div>
-            : <List sx={{ margin: "0rem 0.5rem", paddingTop: "0" }}>
-                {stats.map(stat => {
-                  return (
-                    <ListItem key={stat.name}>
-                      <ListItemIcon sx={{ minWidth: "2rem" }}>
-                        <GamesIcon color="primary" fontSize="small" aria-hidden="true" />
-                      </ListItemIcon>
-                      {stat.name}:&nbsp;
-                      <strong>{stat.value}</strong>.
-                      {stat.percentage !== undefined &&
-                        <>&nbsp;({stat.percentage}%)</>
-                      }
-                    </ListItem>
-                  )
-                })}
-              </List>
-          }
+      <DialogContent id="game-stats-description" sx={{ paddingTop: "0" }}>
+        {!gameStats
+          ? <div className="loading-spinner">
+            <CircularProgress />
+          </div>
+          : <List sx={{ margin: "0rem 0.5rem", paddingTop: "0" }}>
+            {stats.map(stat => {
+              return (
+                <ListItem key={stat.name}>
+                  <ListItemIcon sx={{ minWidth: "2rem" }}>
+                    <GamesIcon color="primary" fontSize="small" aria-hidden="true" />
+                  </ListItemIcon>
+                  {stat.name}:&nbsp;
+                  <strong>{stat.value}</strong>.
+                  {stat.percentage !== undefined &&
+                    <>&nbsp;({stat.percentage}%)</>
+                  }
+                </ListItem>
+              );
+            })}
+          </List>
+        }
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
 
 export default GameStatsDialog;

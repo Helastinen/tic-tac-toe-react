@@ -12,11 +12,11 @@ const MoveHistory = ({ moveHistory, players } : MoveHistoryProps) => {
   if(!hasHistory) return null;
 
   return (
-    <> 
-      <Typography 
+    <>
+      <Typography
         variant="h2"
         color="info"
-        sx={{ 
+        sx={{
           textAlign:"center",
           margin:"2rem 0 1rem 0",
           fontSize: "2rem",
@@ -24,16 +24,16 @@ const MoveHistory = ({ moveHistory, players } : MoveHistoryProps) => {
       >
         {UI_TEXT.HISTORY.TITLE}
       </Typography>
-      <Grid 
+      <Grid
         container
-        spacing={2} 
+        spacing={2}
         sx={{
           justifyContent: "center",
           alignItems: "flex-start",
           wrap: "wrap"
         }}
       >
-        {moveHistory.map((_, i) => { 
+        {moveHistory.map((_, i) => {
           if (i > 0 && i < moveHistory.length - 1) {
             return (
               <Grid
@@ -46,7 +46,7 @@ const MoveHistory = ({ moveHistory, players } : MoveHistoryProps) => {
                   flexDirection: "column",
                   alignItems: "flex-start",
                   justifyContent: "flex-start",
-                  }}
+                }}
               >
                 <div className="move-history-turn">
                   <strong>Turn {i}:</strong><br /> {i % 2 === 1 ? players?.playerOne : players?.playerTwo}
@@ -55,12 +55,12 @@ const MoveHistory = ({ moveHistory, players } : MoveHistoryProps) => {
                   <GridBoard mode="moveHistory" grid={moveHistory[i]} disabled />
                 </div>
               </Grid>
-            )
+            );
           }
         })}
       </Grid>
     </>
-  )
-}
+  );
+};
 
 export default MoveHistory;

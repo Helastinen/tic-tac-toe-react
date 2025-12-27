@@ -1,3 +1,5 @@
+import type React from "react";
+
 import Grid from "@mui/material/Grid";
 import { PlayerFormProps, Players } from "../types/types";
 
@@ -19,9 +21,9 @@ const PlayerForm = ({ players: _players, setPlayers, onStartGame, gameStarted, g
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     // console.log("<PlayerForm> e: ", e);
-    const {name, value} = e.target;
+    const { name, value } = e.target;
     validate(name, value);
-    setPlayers(prev => ({ ...prev, [name]: value }) as Players)
+    setPlayers(prev => ({ ...prev, [name]: value }) as Players);
   };
 
   const validate = (name: string, input: string) => {
@@ -43,18 +45,18 @@ const PlayerForm = ({ players: _players, setPlayers, onStartGame, gameStarted, g
       text = "Minimum 3 characters";
     }
 
-    setErrors({...errors, [name]: error});
-    setHelperTexts({...helperTexts, [name]: text});
+    setErrors({ ...errors, [name]: error });
+    setHelperTexts({ ...helperTexts, [name]: text });
   };
 
   return (
     <>
-      <Grid 
+      <Grid
         container
-        spacing={0}   
+        spacing={0}
         sx={{ justifyContent: "space-evenly", alignItems: "center" }}
       >
-        {!gameStarted && 
+        {!gameStarted &&
           <PlayerSetup
             errors={errors}
             helperTexts={helperTexts}
@@ -63,7 +65,7 @@ const PlayerForm = ({ players: _players, setPlayers, onStartGame, gameStarted, g
           />
         }
         {gameStarted && <PlayerNames currentPlayer= {currentPlayer} players={_players} />}
-        <PlayerControls 
+        <PlayerControls
           errors={errors}
           players={_players}
           gameStarted={gameStarted}
@@ -73,7 +75,7 @@ const PlayerForm = ({ players: _players, setPlayers, onStartGame, gameStarted, g
         />
       </Grid>
     </>
-  )
+  );
 };
 
 export default PlayerForm;

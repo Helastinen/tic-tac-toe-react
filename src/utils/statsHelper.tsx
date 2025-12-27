@@ -14,7 +14,7 @@ export const getSafeStats = (gameStats: GameStats | null): GameStats => {
   return {
     gameHistory: gameStats?.gameHistory ?? defaultGameStats.gameHistory,
     totalStats: gameStats?.totalStats ?? defaultGameStats.totalStats
-  }
+  };
 };
 
 export const calculateAverageRoundWin = (gameHistory: GameHistoryStats[]): number | null => {
@@ -25,18 +25,17 @@ export const calculateAverageRoundWin = (gameHistory: GameHistoryStats[]): numbe
   );
 
   if (completedGamesWithWinningMove.length === 0) return null;
-  
-  const averageRoundWin = completedGamesWithWinningMove.reduce((sum, game) => 
+
+  const averageRoundWin = completedGamesWithWinningMove.reduce((sum, game) =>
     sum + (game.winningMove ?? 0), 0) /
     completedGamesWithWinningMove.length;
-  //console.log("AverageRoundWin: ", averageRoundWin);
 
   // round up to nearest two decimals
   return roundToDecimals(averageRoundWin, 1);
 };
 
 export const getStatPercentage = (stat: number, total: number) => {
-  if (total === 0) return 0; 
+  if (total === 0) return 0;
   return roundToDecimals(stat / total * 100, 0);
 };
 

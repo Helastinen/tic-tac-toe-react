@@ -9,7 +9,7 @@ import { mockEmptyGrid, mockEmptyMoveHistory, mockTotalStats, mockPlayers, mockG
 import { CONFIG } from "../constants/config";
 
 vi.mock("axios");
-//const mockedPostAxios = axios as unknown as { post: ReturnType<typeof vi.fn>};
+
 const mockedAxios = axios as Mocked<typeof axios>;
 
 describe("useGameEngine", () => {
@@ -17,7 +17,7 @@ describe("useGameEngine", () => {
     mockedAxios.get.mockResolvedValue({ data: mockTotalStats });
   });
 
-  test("initial state is correct", async () => {    
+  test("initial state is correct", async () => {
     const { result } = renderHook(() => useGameEngine());
 
     await waitFor(() => {
@@ -31,12 +31,12 @@ describe("useGameEngine", () => {
     });
   });
 
-  test("handleStartGame resets state and sets players", async () => {    
+  test("handleStartGame resets state and sets players", async () => {
     const { result } = renderHook(() => useGameEngine());
     const newMockPlayers: Players = { playerOne: "new Player1", playerTwo: "new PlayerTwo" };
 
     act(() => result.current.handleStartGame(newMockPlayers));
-    
+
     await waitFor(() => {
       expect(result.current).toMatchObject({
         moveHistory: mockEmptyMoveHistory,
@@ -48,14 +48,14 @@ describe("useGameEngine", () => {
     });
   });
 
-  test("handlePlayerMove updates grid and toggles player", async () => {    
+  test("handlePlayerMove updates grid and toggles player", async () => {
     const { result } = renderHook(() => useGameEngine());
     const currentMove: GameBoard = [
       PlayerMark.X, null, null,
       null, null, null,
       null, null, null
     ];
-    
+
     act(() => result.current.handlePlayerMove(currentMove, PlayerMark.X));
 
     await waitFor(() => {
@@ -69,7 +69,7 @@ describe("useGameEngine", () => {
     });
   });
 
-  test("handleEndGame updates stats and ends game", async () => {    
+  test("handleEndGame updates stats and ends game", async () => {
     const { result } = renderHook(() => useGameEngine());
     const currentMove: GameBoard = [
       PlayerMark.X, PlayerMark.X, PlayerMark.X,
@@ -82,9 +82,7 @@ describe("useGameEngine", () => {
     await act(() => result.current.handleEndGame(PlayerMark.X, currentMove));
 
     expect(result.current.gameStarted).toBe(false);
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(mockedAxios.post).toHaveBeenCalledTimes(1);
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(mockedAxios.post).toHaveBeenCalledWith(
       expect.stringContaining(`${CONFIG.API_BASE_URL}/${CONFIG.API_GAMEHISTORY}`),
       expect.objectContaining(mockGameHistoryStats[0])

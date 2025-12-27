@@ -7,7 +7,7 @@ export const getGameStats = async (): Promise<GameStats> => {
     axios.get<GameHistoryStats[]>(`${CONFIG.API_BASE_URL}/${CONFIG.API_GAMEHISTORY}`),
     axios.get<TotalStats>(`${CONFIG.API_BASE_URL}/${CONFIG.API_TOTALSTATS}`),
   ]);
-  
+
   /* console.log("FE -> getGameStats(): ", {
     gameHistory: gameHistoryRes.data,
     totalStats: totalStatsRes.data
@@ -19,11 +19,11 @@ export const getGameStats = async (): Promise<GameStats> => {
   };
 };
 
-export const updateGameHistoryStats = 
+export const updateGameHistoryStats =
   async (gameResult: GameHistoryStats): Promise<GameHistoryStats> => {
     const res = await axios.post<GameHistoryStats>(
       `${CONFIG.API_BASE_URL}/${CONFIG.API_GAMEHISTORY}`,
       gameResult
     );
     return res.data;
-};
+  };

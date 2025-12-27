@@ -24,7 +24,7 @@ const createGridBoard = ({
 } = {} ) => {
   if (mode === "interactive") {
     return (
-      <GridBoard  
+      <GridBoard
         disabled={disabled}
         mode="interactive"
         winningLine={winningLine}
@@ -35,12 +35,12 @@ const createGridBoard = ({
     );
   }
 
-  return ( <GridBoard  
-      disabled={true}
-      mode="moveHistory"      
-      grid={grid}
-    />
-  )
+  return ( <GridBoard
+    disabled={true}
+    mode="moveHistory"
+    grid={grid}
+  />
+  );
 };
 
 describe("GridBoard", () => {
@@ -54,7 +54,7 @@ describe("GridBoard", () => {
 
     expect(container).toBeTruthy();
   });
-  
+
   test("renders squares", () => {
     const mockGridBoard = createGridBoard();
     render(mockGridBoard);
@@ -78,12 +78,12 @@ describe("GridBoard", () => {
     });
 
     test("clicking a filled square does nothing", () => {
-      const filledGrid = [...mockEmptyGrid]; 
+      const filledGrid = [...mockEmptyGrid];
       filledGrid[0] = PlayerMark.X;
 
       const mockGridBoard = createGridBoard({ grid: filledGrid });
       render(mockGridBoard);
-  
+
       const squareButtons = screen.getAllByRole("button");
       squareButtons[0].click();
 
@@ -93,7 +93,7 @@ describe("GridBoard", () => {
     test("clicking a square after game has ended does nothing", () => {
       const mockGridBoard = createGridBoard({ grid: mockWinningGrid, winningLine: [0,3,6] });
       render(mockGridBoard);
-  
+
       const squareButtons = screen.getAllByRole("button");
       squareButtons[2].click();
 

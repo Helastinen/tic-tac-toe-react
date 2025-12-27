@@ -4,16 +4,16 @@ import { PlayerSetupProps } from "../types/types";
 
 const PlayerSetup = ({ errors, helperTexts, players, handleChange }: PlayerSetupProps) => (
   <Grid size={{ xs: 12 }}>
-    <Typography 
+    <Typography
       color="primary"
       variant="h6"
       className="player-setup-title"
     >
       {UI_TEXT.PLAYER_FORM.ENTER_PLAYERS}
     </Typography>
-    <Grid 
+    <Grid
       container
-      spacing={0}   
+      spacing={0}
       className="player-setup-grid"
     >
       <TextField
@@ -23,7 +23,7 @@ const PlayerSetup = ({ errors, helperTexts, players, handleChange }: PlayerSetup
         name="playerOne"
         label={players?.playerOne ?? UI_TEXT.PLAYER_FORM.PLAYER_ONE_LABEL}
         variant="outlined"
-        sx={{ 
+        sx={{
           margin: "1rem",
           backgroundColor: "white"
         }}
@@ -36,10 +36,10 @@ const PlayerSetup = ({ errors, helperTexts, players, handleChange }: PlayerSetup
         name="playerTwo"
         label={players?.playerTwo ?? UI_TEXT.PLAYER_FORM.PLAYER_TWO_LABEL}
         variant="outlined"
-        sx={{ 
+        sx={{
           margin: "1rem",
           backgroundColor: "white"
-        }}  
+        }}
         onChange={handleChange}
       />
     </Grid>

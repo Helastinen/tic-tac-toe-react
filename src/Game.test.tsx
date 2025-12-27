@@ -12,10 +12,10 @@ describe("Game", () => {
   beforeEach(() => {
     // need to mock each endpoint separately, since gamehistory is array and totalStats is object
     (axios.get as ReturnType<typeof vi.fn>).mockImplementation((url: string) => {
-      if (url.includes('/gameHistory')) {
+      if (url.includes("/gameHistory")) {
         return Promise.resolve({ data: mockGameHistoryStats });
       }
-      if (url.includes('/totalStats')) {
+      if (url.includes("/totalStats")) {
         return Promise.resolve({ data: mockTotalStats });
       }
       return Promise.resolve({ data: {} });
@@ -27,9 +27,9 @@ describe("Game", () => {
 
     await waitFor(() => {
       expect(container).toBeTruthy();
-    })
+    });
   });
-  
+
   test("renders game elements", async() => {
     render(<Game />);
 
@@ -49,4 +49,4 @@ describe("Game", () => {
       expect(grid).toBeInTheDocument();
     });
   });
-})
+});

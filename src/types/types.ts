@@ -1,3 +1,5 @@
+import React from "react";
+
 // Enums
 export enum PlayerMark {
   X = "X",
@@ -92,8 +94,9 @@ export interface MoveHistoryGridBoardProps {
 export type GridBoardProps = InteractiveGridBoardProps | MoveHistoryGridBoardProps;
 
 export function isInteractiveGridBoardProps(
-  props: GridBoardProps): props is InteractiveGridBoardProps {
-    return props.mode === "interactive";
+  props: GridBoardProps
+): props is InteractiveGridBoardProps {
+  return props.mode === "interactive";
 };
 
 export interface MoveHistoryProps {
