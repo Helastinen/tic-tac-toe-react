@@ -102,6 +102,8 @@ ul {
 .square-disabled {
   color: black;
   pointer-events: none;
+  background: rgb(232, 232, 232) !important;
+  border: 2px solid rgb(108, 108, 108) !important;
 }
 
 .square-winning {
