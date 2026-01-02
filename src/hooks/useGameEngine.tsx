@@ -30,11 +30,12 @@ export const useGameEngine = () => {
   const [, setGameAborted] = useState(false);
   const [gameStats, setGameStats] = useState<GameStats | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [invalidMove, setInvalidMove] = useState<boolean>(false);
 
   const clearError = () => setError(null);
   const safeStats = getSafeStats(gameStats);
 
-  const currentMove: GameBoard = moveHistory[moveHistory.length - 1];
+  const currentBoard: GameBoard = moveHistory[moveHistory.length - 1];
   const winningValue: Cell | undefined = winningResult?.cell;
   const winningLine = winningResult?.winningLine;
 
@@ -63,31 +64,43 @@ export const useGameEngine = () => {
     }
   };
 
-  const handlePlayerMove = (currentMove: GameBoard, currentPlayer: PlayerMark) => {
-    const result = calculateWinningResult(currentMove);
+  const handlePlayerMove = (index: number) => {
+    const updatedBoard = [...currentBoard];
+    // console.log("[useGameLogic] -> handlePlayerMove() -> updatedBoard: ", updatedBoard);
+
+    // check if illegal move (meaning square already has value, game has ended)
+    if ( updatedBoard[index] !== null || winningLine || !gameStarted ) {
+      setInvalidMove(true);
+      setTimeout(() => setInvalidMove(false), 500);
+      return;
+    }
+
+    updatedBoard[index] = currentPlayer;
+
+    const result = calculateWinningResult(updatedBoard);
     const winValue: Cell | undefined = result?.cell;
-    const tieGame = isTieGame(winValue, currentMove);
+    const tieGame = isTieGame(winValue, updatedBoard);
 
     setCurrentPlayer(togglePlayer(currentPlayer));
-    setMoveHistory([...moveHistory, currentMove]);
+    setMoveHistory([...moveHistory, updatedBoard]);
     setWinningResult(result);
-    //console.log("<Game> -> handlePlayerMove(): result", result);
-    //console.log("<Game> -> handlePlayerMove(): winValue", winValue);
+    console.log("<Game> -> handlePlayerMove(): result", result);
+    console.log("<Game> -> handlePlayerMove(): winValue", winValue);
 
     if (result || tieGame) {
-      void handleEndGame(winValue, currentMove);
+      void handleEndGame(winValue, updatedBoard);
     }
   };
 
   const handleEndGame = async (
     winValue: Cell | undefined = undefined,
-    currentMove: GameBoard = [],
+    board: GameBoard = [],
     aborted = false,
   ) => {
-    const updatedTotalStats = (calculateTotalStats(safeStats.totalStats, winValue, currentMove, aborted));
+    const updatedTotalStats = (calculateTotalStats(safeStats.totalStats, winValue, board, aborted));
 
     // calculate gameResult
-    const playedMoves = currentMove?.filter(square => square !== null).length ?? 0;
+    const playedMoves = board?.filter(square => square !== null).length ?? 0;
     const status = getGameStatus(aborted, winValue);
     const winningMove = getWinningMove(aborted, status, playedMoves);
     const winnerName = getWinnerName(players, winValue);
@@ -104,8 +117,7 @@ export const useGameEngine = () => {
     setGameStarted(false);
 
     try {
-      /* const persistedGameResultStats = */await updateGameHistoryStats(gameResult);
-      //console.log("gameHistory updated to server: ", persistedGameResultStats);
+      await updateGameHistoryStats(gameResult);
 
       setGameStats(prev => ({
         gameHistory: [...(prev?.gameHistory ?? []), gameResult],
@@ -143,10 +155,11 @@ export const useGameEngine = () => {
     winningResult,
     gameStarted,
     gameStats,
-    currentMove,
+    currentBoard,
     winningValue,
     winningLine,
     error,
+    invalidMove,
     clearError,
     handlePlayerMove,
     handleStartGame,

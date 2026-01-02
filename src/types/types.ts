@@ -74,21 +74,24 @@ export interface SquareProps {
   value: Nullable<PlayerMark>;
   onSquareClick: () => void;
   disabled?: boolean;
+  invalidMove?: boolean;
 };
 
 export interface InteractiveGridBoardProps {
   mode: "interactive";
   grid: GameBoard;
   currentPlayer: PlayerMark;
-  OnPlayerMove: (currentMove: GameBoard, currentPlayer: PlayerMark) => void;
+  OnPlayerMove: (index: number) => void;
   winningLine?: WinningLine | undefined;
   disabled?: boolean;
+  invalidMove?: boolean;
 };
 
 export interface MoveHistoryGridBoardProps {
   mode: "moveHistory";
   grid: GameBoard;
   disabled?: true;
+  invalidMove?: boolean;
 };
 
 export type GridBoardProps = InteractiveGridBoardProps | MoveHistoryGridBoardProps;

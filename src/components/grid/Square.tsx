@@ -1,25 +1,34 @@
 import React from "react";
 import { Nullable, PlayerMark, SquareProps, WinningLine } from "../../types/types";
 
-const Square = ({ onSquareClick, index, value, winningLine, disabled }: SquareProps) => {
-  const getSquareColor = () => {
+const Square = ({ onSquareClick, index, value, winningLine, disabled, invalidMove }: SquareProps) => {
+  const getSquareBehavior = () => {
+    const classes = ["square"];
+
     if (winningLine) {
-      return winningLine.includes(index)
-        ? "square square-winning"
-        : "square square-nonwinning";
+      if (winningLine.includes(index)) {
+        classes.push("square-winning");
+      } else {
+        classes.push("square-nonwinning");
+      };
     }
 
     // used for squares in MoveHistory
-    if (disabled) return "square square-disabled";
-
-    switch (value) {
-    case PlayerMark.X:
-      return "square x-square";
-    case PlayerMark.O:
-      return "square o-square";
-    default:
-      return "square";
+    if (disabled) {
+      classes.push("square-disabled");
     }
+
+    if (value === PlayerMark.X) {
+      classes.push("x-square");
+    }
+
+    if (value === PlayerMark.O) {
+      classes.push("o-square");
+    }
+
+    if (invalidMove) { classes.push("square-invalid"); }
+
+    return classes.join(" ");
   };
 
   const getAriaLabel = (index: number, value: Nullable<PlayerMark>, winningLine: WinningLine | undefined) => {
@@ -35,11 +44,12 @@ const Square = ({ onSquareClick, index, value, winningLine, disabled }: SquarePr
     <button
       aria-label={getAriaLabel(index, value, winningLine)}
       tabIndex={disabled ? -1 : 0}
-      className={getSquareColor()} onClick={onSquareClick}
+      className={getSquareBehavior()}
+      onClick={onSquareClick}
       disabled={disabled}
       aria-disabled={disabled}
     >
-      {value}
+      {value && <span className="square-pop">{value}</span>}
     </button>
   );
 };

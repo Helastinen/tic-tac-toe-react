@@ -50,20 +50,20 @@ describe("useGameEngine", () => {
 
   test("handlePlayerMove updates grid and toggles player", async () => {
     const { result } = renderHook(() => useGameEngine());
-    const currentMove: GameBoard = [
+    const currentBoard: GameBoard = [
       PlayerMark.X, null, null,
       null, null, null,
       null, null, null
     ];
-
-    act(() => result.current.handlePlayerMove(currentMove, PlayerMark.X));
+    act(() => result.current.handleStartGame(mockPlayers));
+    act(() => result.current.handlePlayerMove(0));
 
     await waitFor(() => {
       expect(result.current).toMatchObject({
-        moveHistory: [mockEmptyGrid, currentMove],
+        moveHistory: [mockEmptyGrid, currentBoard],
         currentPlayer: PlayerMark.O,
         players: mockPlayers,
-        gameStarted: false,
+        gameStarted: true,
         winningResult: null,
       });
     });
@@ -71,7 +71,7 @@ describe("useGameEngine", () => {
 
   test("handleEndGame updates stats and ends game", async () => {
     const { result } = renderHook(() => useGameEngine());
-    const currentMove: GameBoard = [
+    const board: GameBoard = [
       PlayerMark.X, PlayerMark.X, PlayerMark.X,
       PlayerMark.O, PlayerMark.O, null,
       null, null, null
@@ -79,7 +79,7 @@ describe("useGameEngine", () => {
 
     mockedAxios.post.mockResolvedValue({});
 
-    await act(() => result.current.handleEndGame(PlayerMark.X, currentMove));
+    await act(() => result.current.handleEndGame(PlayerMark.X, board));
 
     expect(result.current.gameStarted).toBe(false);
     expect(mockedAxios.post).toHaveBeenCalledTimes(1);

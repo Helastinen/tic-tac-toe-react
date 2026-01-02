@@ -18,7 +18,7 @@ const createGridBoard = ({
   grid?: GameBoard;
   disabled?: boolean;
   currentPlayer?: PlayerMark;
-  OnPlayerMove?: (currentMove: GameBoard, currentPlayer: PlayerMark) => void;
+  OnPlayerMove?: (index: number) => void;
   winningLine?: WinningLine | undefined;
   mode?: "interactive" | "moveHistory";
 } = {} ) => {
@@ -66,7 +66,7 @@ describe("GridBoard", () => {
   });
 
   describe("Interactive GridBoard", () => {
-    test("clicking empty square triggers PlayerMove", () => {
+    test("clicking empty square calls OnPlayerMove and passes index", () => {
       const mockGridBoard = createGridBoard();
       render(mockGridBoard);
 
@@ -74,10 +74,10 @@ describe("GridBoard", () => {
       squareButtons[0].click();
 
       expect(mockMove).toHaveBeenCalledTimes(1);
-      expect(mockMove).toHaveBeenCalledWith(expect.any(Array), PlayerMark.X);
+      expect(mockMove).toHaveBeenCalledWith(0);
     });
 
-    test("clicking a filled square does nothing", () => {
+    test("clicking a filled square calls OnPlayerMove and passes index", () => {
       const filledGrid = [...mockEmptyGrid];
       filledGrid[0] = PlayerMark.X;
 
@@ -87,17 +87,19 @@ describe("GridBoard", () => {
       const squareButtons = screen.getAllByRole("button");
       squareButtons[0].click();
 
-      expect(mockMove).not.toHaveBeenCalled();
+      expect(mockMove).toHaveBeenCalledTimes(1);
+      expect(mockMove).toHaveBeenCalledWith(0);
     });
 
-    test("clicking a square after game has ended does nothing", () => {
+    test("clicking a square after game has ended calls OnPlayerMove and passes index", () => {
       const mockGridBoard = createGridBoard({ grid: mockWinningGrid, winningLine: [0,3,6] });
       render(mockGridBoard);
 
       const squareButtons = screen.getAllByRole("button");
       squareButtons[2].click();
 
-      expect(mockMove).not.toHaveBeenCalled();
+      expect(mockMove).toHaveBeenCalledTimes(1);
+      expect(mockMove).toHaveBeenCalledWith(2);
     });
   });
 

@@ -96,7 +96,7 @@ ul {
 }
 
 .o-square {
-  color: darkgreen;
+  color: rgb(255, 111, 0);
 }
 
 .square-disabled {
@@ -106,13 +106,58 @@ ul {
   border: 2px solid rgb(108, 108, 108) !important;
 }
 
+.square-invalid {
+  animation: shake 300ms ease-in-out;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+  100% { transform: translateX(0); }
+}
+
 .square-winning {
-  color: red;
+  color: green;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes glow { 
+  0% {
+    box-shadow: 0 0 0.5rem #fff;
+  } 
+  100% {
+    box-shadow: 0 0 1.5rem green;
+  }
 }
 
 .square-nonwinning {
   filter: grayscale(100%);
 }
+
+/* Square animation */
+.square-pop {
+  display: inline-block;
+  animation: pop-in 300ms ease-out;
+  transform-origin: center;
+}
+
+@keyframes pop-in {
+  0% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 
 /* Status */
 .status {

@@ -18,8 +18,9 @@ const Game = () => {
     winningLine,
     gameStarted,
     gameStats,
-    currentMove,
+    currentBoard,
     error,
+    invalidMove,
     clearError,
     handlePlayerMove,
     handleStartGame,
@@ -32,7 +33,7 @@ const Game = () => {
   // console.log("<Game> moveHistory: ", moveHistory);
   // console.log("<Game> gameStats: ", gameStats);
 
-  if (!currentMove) return <CircularProgress />;
+  if (!currentBoard) return <CircularProgress />;
 
   return (
     <div className="game-background">
@@ -51,7 +52,7 @@ const Game = () => {
         winningValue={winningValue}
         currentPlayer={currentPlayer}
         players={players}
-        grid={currentMove}
+        grid={currentBoard}
         gameStarted={gameStarted}
         moveHistory={moveHistory}
       />
@@ -61,8 +62,9 @@ const Game = () => {
           mode="interactive"
           winningLine={winningLine}
           currentPlayer={currentPlayer}
-          grid={currentMove}
+          grid={currentBoard}
           OnPlayerMove={handlePlayerMove}
+          invalidMove={invalidMove}
         />
       </div>
       <div className="move-history">

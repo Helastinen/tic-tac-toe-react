@@ -5,12 +5,11 @@ import { GridBoardProps, isInteractiveGridBoardProps } from "../../types/types";
 
 const GridBoard = (props: GridBoardProps) => {
   // console.log("<GridBoard> gridBoard: ", props.grid);
-  const { grid, disabled } = props;
+  const { grid, disabled, invalidMove } = props;
 
-  const { currentPlayer, OnPlayerMove, winningLine } = isInteractiveGridBoardProps(props)
+  const { OnPlayerMove, winningLine } = isInteractiveGridBoardProps(props)
     ? props
     : {
-      currentPlayer: undefined,
       OnPlayerMove: undefined,
       winningLine: undefined
     };
@@ -18,15 +17,6 @@ const GridBoard = (props: GridBoardProps) => {
   const className = !isInteractiveGridBoardProps(props)
     ? "move-history-gridboard"
     : "";
-
-  const handleClick = (i: number) => {
-    // do nothing if square has already value or game has ended
-    if (disabled || grid[i] || winningLine || !currentPlayer) return;
-
-    const updatedGrid = [...grid];
-    updatedGrid[i] = currentPlayer;
-    OnPlayerMove?.(updatedGrid, currentPlayer);
-  };
 
   return (
     <Grid
@@ -46,7 +36,8 @@ const GridBoard = (props: GridBoardProps) => {
         <Square
           key={i}
           disabled={disabled}
-          onSquareClick={() => handleClick(i)}
+          invalidMove={invalidMove}
+          onSquareClick={() => OnPlayerMove?.(i)}
           index={i}
           value={value}
           winningLine={winningLine}

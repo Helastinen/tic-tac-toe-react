@@ -16,7 +16,6 @@ If you are developing a production application, we recommend using TypeScript wi
 ### FE
 - add 1 player mode, computer opponent. -> big effort
 - add basic unit tests -> ongoing
-- show gamegrid grayed out before game starts
 - when adding a X or O make it pop 
 
 ### Backend
