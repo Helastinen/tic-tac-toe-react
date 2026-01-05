@@ -71,6 +71,7 @@ export interface StatusProps {
 export interface SquareProps {
   winningLine: WinningLine | undefined;
   index: number;
+  latestMove?: boolean;
   value: Nullable<PlayerMark>;
   onSquareClick: () => void;
   disabled?: boolean;
@@ -81,6 +82,7 @@ export interface InteractiveGridBoardProps {
   mode: "interactive";
   grid: GameBoard;
   currentPlayer: PlayerMark;
+  latestMove?: boolean;
   OnPlayerMove: (index: number) => void;
   winningLine?: WinningLine | undefined;
   disabled?: boolean;
@@ -90,6 +92,7 @@ export interface InteractiveGridBoardProps {
 export interface MoveHistoryGridBoardProps {
   mode: "moveHistory";
   grid: GameBoard;
+  latestMove: number;
   disabled?: true;
   invalidMove?: boolean;
 };

@@ -5,13 +5,13 @@ import { GridBoardProps, isInteractiveGridBoardProps } from "../../types/types";
 
 const GridBoard = (props: GridBoardProps) => {
   // console.log("<GridBoard> gridBoard: ", props.grid);
-  const { grid, disabled, invalidMove } = props;
+  const { grid, disabled, invalidMove, latestMove } = props;
 
   const { OnPlayerMove, winningLine } = isInteractiveGridBoardProps(props)
     ? props
     : {
       OnPlayerMove: undefined,
-      winningLine: undefined
+      winningLine: undefined,
     };
 
   const className = !isInteractiveGridBoardProps(props)
@@ -36,9 +36,10 @@ const GridBoard = (props: GridBoardProps) => {
         <Square
           key={i}
           disabled={disabled}
-          invalidMove={invalidMove}
-          onSquareClick={() => OnPlayerMove?.(i)}
           index={i}
+          invalidMove={invalidMove}
+          latestMove={latestMove === i}
+          onSquareClick={() => OnPlayerMove?.(i)}
           value={value}
           winningLine={winningLine}
         />

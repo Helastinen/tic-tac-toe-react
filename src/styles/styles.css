@@ -2,13 +2,9 @@
   --board-width: 230px;
 }
 
+/* Global resets */
 * {
   box-sizing: border-box;
-}
-
-p {
-  margin: 10px auto;
-  text-align: center;
 }
 
 body {
@@ -21,6 +17,11 @@ body {
   background-attachment: fixed;
 }
 
+p {
+  margin: 10px auto;
+  text-align: center;
+}
+
 
 ul {
   display: flex;
@@ -29,7 +30,9 @@ ul {
   padding-inline-start: 20px;
 }
 
-/* Game */
+/* -------------------------------------------------------
+   Game Layout
+------------------------------------------------------- */
 .game-background {
   background-color: rgba(255, 255, 255, 0.65);
   min-height: 100vh;
@@ -43,30 +46,31 @@ ul {
   min-height: 150px;
 }
 
-/* Gametitle */
 .game-title {
   text-align: center;
   margin: 1rem;
   font-size: 4rem;
 }
 
-/* GameBoard */
 .board {
   width: var(--board-width);
   margin: 0 auto;
 }
 
-/* MoveHistory */
+/* -------------------------------------------------------
+   Move History
+------------------------------------------------------- */
 .move-history {
-  margin: 0 3rem 0 3rem;
-  padding: 0 0 2rem 0;
+  margin: 0 3rem;
+  padding-bottom: 2rem;
 }
 
 .move-history-turn {
   margin: 1rem 2rem 1rem 1rem;
 }
 
-.move-history-gridboard {
+/* Grayscale all squares in history (but allow overrides) */
+.move-history-gridboard .square {
   filter: grayscale(100%);
 }
 
@@ -77,7 +81,9 @@ ul {
   font-size: 1.5rem;
 }
 
-/* Grid square */
+/* -------------------------------------------------------
+   Grid Squares
+------------------------------------------------------- */
 .square {
   background: rgb(215, 237, 247);
   border: 2px solid #1976d2;
@@ -91,13 +97,9 @@ ul {
   text-align: center;
 }
 
-.x-square {
-  color: darkblue;
-}
-
-.o-square {
-  color: rgb(255, 111, 0);
-}
+/* Player colors */
+.x-square { color: darkblue; }
+.o-square { color: rgb(255, 111, 0); }
 
 .square-disabled {
   color: black;
@@ -110,6 +112,23 @@ ul {
   animation: shake 300ms ease-in-out;
 }
 
+.square-winning {
+  color: green;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+.square-nonwinning {
+  filter: grayscale(100%);
+}
+
+.square.square-latest-move {
+  color: green;
+  filter: none;
+}
+
+/* -------------------------------------------------------
+   Animations
+------------------------------------------------------- */
 @keyframes shake {
   0% { transform: translateX(0); }
   20% { transform: translateX(-4px); }
@@ -119,25 +138,11 @@ ul {
   100% { transform: translateX(0); }
 }
 
-.square-winning {
-  color: green;
-  animation: glow 1s ease-in-out infinite alternate;
-}
-
 @keyframes glow { 
-  0% {
-    box-shadow: 0 0 0.5rem #fff;
-  } 
-  100% {
-    box-shadow: 0 0 1.5rem green;
-  }
+  0% { box-shadow: 0 0 0.5rem #fff; } 
+  100% { box-shadow: 0 0 1.5rem green; }
 }
 
-.square-nonwinning {
-  filter: grayscale(100%);
-}
-
-/* Square animation */
 .square-pop {
   display: inline-block;
   animation: pop-in 300ms ease-out;
@@ -145,26 +150,18 @@ ul {
 }
 
 @keyframes pop-in {
-  0% {
-    transform: scale(0.2);
-    opacity: 0;
-  }
-  70% {
-    transform: scale(1.2);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-  }
+  0% { transform: scale(0.2); opacity: 0; }
+  70% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); }
 }
 
-
-/* Status */
+/* -------------------------------------------------------
+   Status + Player Form
+------------------------------------------------------- */
 .status {
   margin: 0 0 1.5rem;
 }
 
-/* Playerform */
 .player-form-player-name {
   display: flex;
   justify-content: space-evenly;

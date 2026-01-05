@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 
 import GridBoard from "./GridBoard";
-import { MoveHistoryProps } from "../../types/types";
+import { MoveHistoryProps, MoveHistoryType } from "../../types/types";
 import Typography from "@mui/material/Typography";
 import { UI_TEXT } from "../../constants/uiText";
 
@@ -10,6 +10,13 @@ const MoveHistory = ({ moveHistory, players } : MoveHistoryProps) => {
   const hasHistory = moveHistory.length > 2;
 
   if(!hasHistory) return null;
+
+  const changedIndex = (moveHistory: MoveHistoryType, index: number): number => {
+    const previousBoard = moveHistory[index - 1];
+    const currentBoard = moveHistory[index];
+
+    return currentBoard.findIndex((square, i) => square !== previousBoard[i]);
+  };
 
   return (
     <>
@@ -34,6 +41,7 @@ const MoveHistory = ({ moveHistory, players } : MoveHistoryProps) => {
         }}
       >
         {moveHistory.map((_, i) => {
+          // don't show empty grid in move history
           if (i > 0 && i < moveHistory.length - 1) {
             return (
               <Grid
@@ -52,7 +60,12 @@ const MoveHistory = ({ moveHistory, players } : MoveHistoryProps) => {
                   <strong>Turn {i}:</strong><br /> {i % 2 === 1 ? players?.playerOne : players?.playerTwo}
                 </div>
                 <div key={i} className="move-history-small-grid">
-                  <GridBoard mode="moveHistory" grid={moveHistory[i]} disabled />
+                  <GridBoard
+                    mode="moveHistory"
+                    grid={moveHistory[i]}
+                    disabled
+                    latestMove={changedIndex(moveHistory, i)}
+                  />
                 </div>
               </Grid>
             );
