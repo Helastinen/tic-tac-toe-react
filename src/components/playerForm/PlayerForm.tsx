@@ -11,8 +11,9 @@ import PlayerControls from "./PlayerControls";
 import { UI_TEXT } from "../../constants/uiText";
 import { Typography } from "@mui/material";
 
-const PlayerForm = ({ players: _players, setPlayers, onStartGame, gameStats, currentPlayer, fetchStats }: PlayerFormProps) => {
+const PlayerForm = ({ players, setPlayers, onStartGame, gameStats, currentPlayer, fetchStats }: PlayerFormProps) => {
   const [isEditingPlayers, setIsEditingPlayers] = useState(true);
+  const [draftPlayers, setDraftPlayers] = useState(players);
   const [errors, setErrors] = useState<Record<string, boolean>>({
     playerOne: false,
     playerTwo: false,
@@ -23,13 +24,26 @@ const PlayerForm = ({ players: _players, setPlayers, onStartGame, gameStats, cur
   });
 
   const handleChangeNames = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    // console.log("<PlayerForm> e: ", e);
+    console.log("<PlayerForm> -> handleChangeNames(e): ", e);
     const { name, value } = e.target;
     validate(name, value);
-    setPlayers(prev => ({ ...prev, [name]: value }) as Players);
+    setDraftPlayers(prev => ({ ...prev, [name]: value }) as Players);
+    //setPlayers(prev => ({ ...prev, [name]: value }) as Players);
   };
 
   const handleEditPlayers = () => {
+    console.log("<PlayerForm> -> handleEditPlayers() triggered");
+    console.log("<PlayerForm> -> handleEditPlayers() -> draftPlayers: ", draftPlayers);
+
+    if (!isEditingPlayers) {
+      // user enters edit mode and (re)loads committed names
+      setDraftPlayers(players);
+    }
+    else {
+      // user leaves edit mode with updated names
+      setPlayers(draftPlayers);
+    };
+
     setIsEditingPlayers(!isEditingPlayers);
   };
 
@@ -77,25 +91,23 @@ const PlayerForm = ({ players: _players, setPlayers, onStartGame, gameStats, cur
             <PlayerSetup
               errors={errors}
               helperTexts={helperTexts}
-              players={_players}
+              players={draftPlayers}
               handleChange={handleChangeNames}
             />
           </Grid>
         )}
         {!isEditingPlayers && (
           <Grid size={12}>
-            <PlayerNames currentPlayer= {currentPlayer} players={_players} />
+            <PlayerNames currentPlayer= {currentPlayer} players={players} />
           </Grid>
         )}
         <Grid size={12}>
           <PlayerControls
             errors={errors}
-            players={_players}
+            players={draftPlayers}
             gameStats={gameStats}
-            onStartGame={(players) => {
-              onStartGame(players);
-              setIsEditingPlayers(false);
-            }}
+            isEditingPlayers={isEditingPlayers}
+            onStartGame={(players) => onStartGame(players)}
             onEditPlayers={handleEditPlayers}
             fetchStats={fetchStats}
           />

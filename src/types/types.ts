@@ -135,6 +135,7 @@ export interface PlayerControlsProps {
   errors: Record<string, boolean>;
   players: Players;
   gameStats: GameStats | null;
+  isEditingPlayers: boolean;
   onStartGame: (players: Players) => void;
   onEditPlayers: () => void;
   fetchStats: () => Promise<void>;

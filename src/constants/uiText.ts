@@ -6,6 +6,7 @@ export const UI_TEXT = {
     TITLE: "Tic-Tac-Toe",
     NEW: "New game",
     EDIT_PLAYERS: "Edit Players",
+    SAVE_PLAYERS: "Save Players",
     STATS: "Stats"
   },
   HISTORY: {

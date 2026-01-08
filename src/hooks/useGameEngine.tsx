@@ -51,17 +51,17 @@ export const useGameEngine = () => {
   };
 
   const handleStartGame = (players: Players) => {
+    // aborted game = user starts new game during existing game
+    if (gameStarted) {
+      setGameAborted(true);
+      void handleEndGame(undefined, [], true);
+    };
+
     setWinningResult(null);
     setCurrentPlayer(PlayerMark.X);
     setMoveHistory([Array(9).fill(null)]);
     setPlayers(players);
     setGameStarted(true);
-
-    // game has been aborted, if user starts new game during existing game
-    if (gameStarted) {
-      setGameAborted(true);
-      void handleEndGame(undefined, [], true);
-    }
   };
 
   const handlePlayerMove = (index: number) => {

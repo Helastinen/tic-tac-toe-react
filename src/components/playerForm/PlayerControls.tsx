@@ -12,6 +12,7 @@ const PlayerControls = ({
   errors,
   players,
   gameStats,
+  isEditingPlayers,
   onStartGame,
   onEditPlayers,
   fetchStats
@@ -33,10 +34,17 @@ const PlayerControls = ({
       alignItems="center"
     >
       <Button
-        disabled={errors.playerOne || errors.playerTwo}
+        disabled={errors.playerOne || errors.playerTwo ||  isEditingPlayers}
         variant="contained"
         onClick={() => onStartGame(players)}
-        sx={{ margin: "1rem 0.5rem 0.5rem" }}
+        sx={{
+          margin: "1rem 0.5rem 0.5rem",
+          "&.Mui-disabled": {
+            backgroundColor: "#bdbdbd",
+            color: "gray",
+            opacity: 1
+          }
+        }}
       >
         {UI_TEXT.GAME.NEW}
       </Button>
@@ -49,7 +57,7 @@ const PlayerControls = ({
           backgroundColor: "white"
         }}
       >
-        {UI_TEXT.GAME.EDIT_PLAYERS}
+        {isEditingPlayers ? UI_TEXT.GAME.SAVE_PLAYERS : UI_TEXT.GAME.EDIT_PLAYERS}
       </Button>
       <Button
         variant="outlined"
