@@ -25,7 +25,7 @@ const MoveHistory = ({ moveHistory, players } : MoveHistoryProps) => {
         color="info"
         sx={{
           textAlign:"center",
-          margin:"2rem 0 1rem 0",
+          margin:"0",
           fontSize: "2rem",
         }}
       >

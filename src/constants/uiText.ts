@@ -14,7 +14,8 @@ export const UI_TEXT = {
   PLAYER_FORM: {
     PLAYER_ONE_LABEL: "Player One (X)",
     PLAYER_TWO_LABEL: "Player Two (O)",
-    ENTER_PLAYERS: "Enter players:"
+    ENTER_PLAYERS: "Enter players",
+    PLAYERS: "Players"
   },
   STATS: {
     TITLE: "Game Statistics",

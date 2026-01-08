@@ -8,6 +8,7 @@ import Status from "./components/Status";
 import { useGameEngine } from "./hooks/useGameEngine";
 import GameTitle from "./components/GameTitle";
 import ErrorBanner from "./components/ErrorBanner";
+import { Divider } from "@mui/material";
 
 const Game = () => {
   const {
@@ -47,6 +48,7 @@ const Game = () => {
         currentPlayer={currentPlayer}
         fetchStats={fetchStats}
       />
+      <Divider variant="middle" sx={{ margin: "1.5rem 1rem 2rem 1rem", border: "1px solid", borderColor: "divider" }}/>
       <Status
         winningValue={winningValue}
         currentPlayer={currentPlayer}
@@ -66,6 +68,7 @@ const Game = () => {
           invalidMove={invalidMove}
         />
       </div>
+      <Divider variant="middle" sx={{ margin: "2rem 1rem 1rem 1rem", border: "1px solid", borderColor: "divider" }}/>
       <div className="move-history">
         <MoveHistory moveHistory={moveHistory} players={players} />
       </div>

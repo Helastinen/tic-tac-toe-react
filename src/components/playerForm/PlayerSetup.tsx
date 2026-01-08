@@ -1,16 +1,9 @@
-import { Grid, TextField, Typography } from "@mui/material";
+import { Grid, TextField } from "@mui/material";
 import { UI_TEXT } from "../../constants/uiText";
 import { PlayerSetupProps } from "../../types/types";
 
 const PlayerSetup = ({ errors, helperTexts, players, handleChange }: PlayerSetupProps) => (
   <Grid size={{ xs: 12 }}>
-    <Typography
-      color="primary"
-      variant="h6"
-      className="player-setup-title"
-    >
-      {UI_TEXT.PLAYER_FORM.ENTER_PLAYERS}
-    </Typography>
     <Grid
       container
       spacing={0}

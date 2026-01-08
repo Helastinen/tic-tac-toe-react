@@ -17,8 +17,8 @@ If you are developing a production application, we recommend using TypeScript wi
 - add 1 player mode, computer opponent. -> big effort
 - add basic unit tests -> ongoing
 - move changing player name behind separate button. DONE.
--- don't allow name editing after game has ended
--- make UI same height in editing mode then in name showing mode.
+-- change edit players to save names button and only change names once the button is pressed.
+-- make UI same height in editing mode then in name showing mode. DONE.
 
 ### Backend
 - add typescript

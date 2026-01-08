@@ -36,7 +36,7 @@ const PlayerControls = ({
         disabled={errors.playerOne || errors.playerTwo}
         variant="contained"
         onClick={() => onStartGame(players)}
-        sx={{ margin: "1rem 0.5rem 1.5rem" }}
+        sx={{ margin: "1rem 0.5rem 0.5rem" }}
       >
         {UI_TEXT.GAME.NEW}
       </Button>
@@ -44,7 +44,10 @@ const PlayerControls = ({
         variant="outlined"
         startIcon={<PersonIcon />}
         onClick={() => onEditPlayers()}
-        sx={{ margin: "1rem 0.5rem 1.5rem" }}
+        sx={{
+          margin: "1rem 0.5rem 0.5rem",
+          backgroundColor: "white"
+        }}
       >
         {UI_TEXT.GAME.EDIT_PLAYERS}
       </Button>
@@ -53,7 +56,7 @@ const PlayerControls = ({
         startIcon={<BarChartIcon />}
         onClick={handleStatsDialogOpen}
         sx={{
-          margin: "1rem 0.5rem 1.5rem",
+          margin: "1rem 0.5rem 0.5rem",
           backgroundColor: "white"
         }}
       >

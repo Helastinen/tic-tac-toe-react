@@ -162,16 +162,13 @@ ul {
   margin: 0 0 1.5rem;
 }
 
-.player-form-player-name {
+.player-form-player-names {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 6rem;
   align-items: baseline;
-  width: 50%;
-  margin-top: 1rem;
-}
-
-.player-form-player-one {
-  padding-right: 1rem;
+  width: 100%;
+  margin: 2.1rem 0;
 }
 
 .player-setup-title {
